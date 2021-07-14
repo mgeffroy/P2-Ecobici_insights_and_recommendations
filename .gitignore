@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+Resources/Data/Gitignore-data-output-files/*.csv
+
 # Distribution / packaging
 .Python
 build/
