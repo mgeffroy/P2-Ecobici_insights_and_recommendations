@@ -6,7 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
-Resources/Data/Gitignore-data-output-files/*.csv
+Resources/Data/Gitignore-data-output-files/ecobici_ride_data-unified.csv
 
 # Distribution / packaging
 .Python
