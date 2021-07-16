@@ -1,35 +1,43 @@
-from flask import Flask, render_template, redirect
+import numpy as np
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, func
+from flask import Flask, redirect,jsonify
+from config import password
 
 
 app = Flask(__name__)
 
-# Use flask_pymongo to set up mongo connection
-app.config["MONGO_URI"] = "mongodb://localhost:27017/phone_app"
-mongo = PyMongo(app)
+#################################################
+# Database Setup
+#################################################
+engine = create_engine(f'postgresql://postgress:{password}@localhost:5432/')
 
-# Or set inline
-# mongo = PyMongo(app, uri="mongodb://localhost:27017/phone_app")
-
+# reflect an existing database into a new model
+Base = automap_base()
+# reflect the tables
+Base.prepare(engine, reflect=True)
 
 @app.route("/")
 def index():
     test=1
 
 
-@app.route("/stationdata")
-def scraper():
+@app.route("/stationdata/<yeardata>")
+def scraper(yeardata):
     test=2
 
-@app.route("/genderdata")
-def scraper():
+@app.route("/genderdata/<yeardata>")
+def scraper(yeardata):
     test=2
 
-@app.route("/coloniadata")
-def scraper():
+@app.route("/coloniadata/<yeardata>")
+def scraper(yeardata):
     test=2
 
-@app.route("/routedata")
-def scraper():
+@app.route("/routedata/<yeardata>")
+def scraper(yeardata):
     test=2
 
 if __name__ == "__main__":
