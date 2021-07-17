@@ -1,0 +1,28 @@
+For usage in: https://app.quickdatabasediagrams.com/#/
+
+Estaciones
+-
+ID INTEGER PK
+NAME VARCHAR
+LAT FLOAT
+LON FLOAT
+districtName VARCHAR FK >- Colonias.nombre
+
+Viajes
+-
+TRIP_ID INTEGER PK
+Genero_Usuario VARCHAR
+Edad_Usuario INTEGER
+Ciclo_Estacion_Retiro INTEGER FK >- Estaciones.ID
+Ciclo_Estacion_Arribo INTEGER FK >- Estaciones.ID
+Usage_Timestamp DATETIME
+Duration(min) FLOAT
+
+
+Colonias
+-
+id INTEGER PK 
+nombre VARCHAR
+geo_shape VARCHAR
+alcaldia VARCHAR
+

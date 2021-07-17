@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 Resources/Data/Gitignore-data-output-files/ecobici_ride_data-unified.csv
+Resources/Data/Gitignore-data-output-files/ecobici_ride_data-oneInTen.csv
 
 # Distribution / packaging
 .Python
@@ -129,3 +130,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#config files
+config.py
+.vscode
