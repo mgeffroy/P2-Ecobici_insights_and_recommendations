@@ -13,11 +13,10 @@ Viajes
 TRIP_ID INTEGER PK
 Genero_Usuario VARCHAR
 Edad_Usuario INTEGER
-Bici INTEGER
 Ciclo_Estacion_Retiro INTEGER FK >- Estaciones.ID
-Fecha_Retiro VARCHAR
 Ciclo_Estacion_Arribo INTEGER FK >- Estaciones.ID
-Duracion VARCHAR
+Usage_Timestamp DATETIME
+Duration(min) FLOAT
 
 
 Colonias
