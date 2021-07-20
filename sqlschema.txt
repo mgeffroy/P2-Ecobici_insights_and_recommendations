@@ -6,7 +6,7 @@ ID INTEGER PK
 NAME VARCHAR
 LAT FLOAT
 LON FLOAT
-districtName VARCHAR FK >- Colonias.nombre
+districtName VARCHAR FK >- Colonias.NAME
 
 Viajes
 -
@@ -15,14 +15,63 @@ Genero_Usuario VARCHAR
 Edad_Usuario INTEGER
 Ciclo_Estacion_Retiro INTEGER FK >- Estaciones.ID
 Ciclo_Estacion_Arribo INTEGER FK >- Estaciones.ID
-Usage_Timestamp DATETIME
-Duration(min) FLOAT
+Usage_Timestamp VARCHAR
+Duration FLOAT
 
 
 Colonias
 -
-id INTEGER PK 
-nombre VARCHAR
-geo_shape VARCHAR
-alcaldia VARCHAR
+ID INTEGER PK 
+NAME VARCHAR
+GeoShape VARCHAR
+Alcaldia VARCHAR
+
+ ---------------------------
+|                           |
+|Schema creation code below!|
+|                           |
+ ---------------------------
+
+CREATE TABLE "Estaciones" (
+    "ID" INTEGER   UNIQUE NOT NULL,
+    "NAME" VARCHAR   NOT NULL,
+    "LAT" FLOAT   NOT NULL,
+    "LON" FLOAT   NOT NULL,
+    "districtName" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_Estaciones" PRIMARY KEY (
+        "ID"
+     )
+);
+
+CREATE TABLE "Viajes" (
+    "TRIP_ID" INTEGER  UNIQUE  NOT NULL,
+    "Genero_Usuario" VARCHAR   NOT NULL,
+    "Edad_Usuario" INTEGER   NOT NULL,
+    "Ciclo_Estacion_Retiro" INTEGER   NOT NULL,
+    "Ciclo_Estacion_Arribo" INTEGER   NOT NULL,
+    "Usage_Timestamp" VARCHAR   NOT NULL,
+    "Duration" FLOAT   NOT NULL,
+    CONSTRAINT "pk_Viajes" PRIMARY KEY (
+        "TRIP_ID"
+     )
+);
+
+CREATE TABLE "Colonias" (
+    "ID" INTEGER   NOT NULL,
+    "NAME" VARCHAR UNIQUE   NOT NULL,
+    "GeoShape" VARCHAR   NOT NULL,
+    "Alcaldia" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_Colonias" PRIMARY KEY (
+        "ID"
+     )
+);
+
+ALTER TABLE "Estaciones" ADD CONSTRAINT "fk_Estaciones_districtName" FOREIGN KEY("districtName")
+REFERENCES "Colonias" ("NAME");
+
+ALTER TABLE "Viajes" ADD CONSTRAINT "fk_Viajes_Ciclo_Estacion_Retiro" FOREIGN KEY("Ciclo_Estacion_Retiro")
+REFERENCES "Estaciones" ("ID");
+
+ALTER TABLE "Viajes" ADD CONSTRAINT "fk_Viajes_Ciclo_Estacion_Arribo" FOREIGN KEY("Ciclo_Estacion_Arribo")
+REFERENCES "Estaciones" ("ID");
 
