@@ -71,47 +71,65 @@
    <div class = "row gx-5">
     <!--Create the 3 cards of used datasets with links-->
     <!--Create 1st column-->
-    <div class = "mh col-sm-4 col-xs-6">
-      <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <div class = "mh col-md-4 col-sm-6 col-xs-6">
+      <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
         <div class="card-header">Ecobici Trips CSV files</div>
           <div class="card-body">
            <h4 class="card-title">Ecobici CSV files</h4>
-            <p class="card-text">Historical archives of Ecobici usage in Mexico City <br>
+            <p class="card-text">Historical archives of Ecobici usage in Mexico City. Year and Month files can be selected. <br>
+            <a class="links" href="https://www.ecobici.cdmx.gob.mx/es/informacion-del-servicio/open-data">Link</a> </p>
+        </div>
+      </div>
+      <!--Close 1st column-->
+    </div>
+         <!--Create 2nd column-->
+    <div class = "mh col-md-4 col-sm-6 col-xs-6">
+      <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div class="card-header">Ecobici API</div>
+          <div class="card-body">
+           <h4 class="card-title">Ecobici API</h4>
+            <p class="card-text"> API includes station name and location, as well as current bike availability.<br>
             <a class="links" href="https://www.ecobici.cdmx.gob.mx/es/informacion-del-servicio/open-data">Link</a> </p>
         </div>
       </div>
       <!--Close column-->
     </div>
-       <!--Create 2nd column-->
-       <div class = "mh col-sm-4 col-s-6 col-xs-6">
-        <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
-          <div class="card-header">Ecobici Trips CSV files</div>
-            <div class="card-body">
-             <h4 class="card-title">Ecobici CSV files</h4>
-              <p class="card-text">Historical archives of Ecobici usage in Mexico City <br>
-              <a class="links" href="https://www.ecobici.cdmx.gob.mx/es/informacion-del-servicio/open-data">Link</a> </p>
-          </div>
-        </div>
-        <!--Close column-->
-      </div>
-         <!--Create 3rd column-->
-    <div class = "mh col-sm-4 col-xs-6">
-      <div class="card bg-secondary mb-3" style="max-width: 20rem;">
-        <div class="card-header">Ecobici Trips CSV files</div>
+     <!--Create 3rd column-->
+     <div class = "mh col-md-4 col-sm-6 col-xs-6">
+      <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+        <div class="card-header">Open Data Mexico City</div>
           <div class="card-body">
-           <h4 class="card-title">Ecobici CSV files</h4>
-            <p class="card-text">Historical archives of Ecobici usage in Mexico City <br>
-            <a class="links" href="https://www.ecobici.cdmx.gob.mx/es/informacion-del-servicio/open-data">Link</a> </p>
+           <h4 class="card-title"> "Colonias information"</h4>
+            <p class="card-text"> List of Mexico City's neighborhoods and geographical borders. <br>
+            <a class="links" href="https://datos.cdmx.gob.mx/dataset/coloniascdmx">Link</a> </p>
         </div>
       </div>
-      <!--Close column-->
+      <!--Close 3rd column-->
     </div>
 <!--Close second row--> 
 </div>
-   <!--- Close container-->
+
+<!---Open disclaimer heading row-->
+<div>
+<h2>Data disclaimer</h2>
+<!--Close disclaimer heading row-->
+</div>
+
+<!--Opening of data disclaimer -->
+<p>It is important to mention that in our analysis, we did the following: 
+  <ul>
+    <li>The data used in most of our analysis is related to trip number by day, and is not related to the users of the Ecobici service.</li>
+  </ul>
+</p>
+        <!--Table title row-->
+        <div class="row">
+          <br>
+          <h2>Ecobici Data</h2>
+          <br>
+          <p>Some of the data used in this project can be consulted here, where information can be filtered by date.</p>
+      
+        <!--Close row for title-->
       </div>
-  
-      <div class="container">
         <div class="row margin-top-50">
           <div class="col-md-2">
             <aside class="filters">
@@ -122,12 +140,8 @@
                     <div class="form-group">
                       <ul class="list-group" id="filters">
                         <li class="filter list-group-item">
-                          <label for="date">Enter a Year</label>
-                          <input class="form-control" id="Yearname" type="text" placeholder="2012">
-                        </li>
-                        <li class="filter list-group-item">
-                          <label for="city">Enter a Month</label>
-                          <input class="form-control" id="monthname" type="text" placeholder="March">
+                          <label for="date">Enter a date</label>
+                          <input class="form-control" id="Yearname" type="text" placeholder="2010-02-28">
                         </li>
                       </ul>
                     </div>
