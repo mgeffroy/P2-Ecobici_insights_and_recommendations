@@ -1,15 +1,12 @@
 
-markers = stations_data
-colonia_boundaries = colonias_data[0]
-
-// console.log(Object.keys(routes).length);
+// INITIALIZE MYMAP
 var myMap = L.map("map", {
   center: [
     19.4017, -99.1695
   ],
   zoom: 13
 });
-
+// HELPER FUNCTION TO GET STROKE WEIGHT, OPACITY AND COLORS
 function getStrokeWeight(v) {
   return v > 40 ? [6, 1, '#99000d'] :
     v > 30 ? [5, .8, '#cb181d'] :
@@ -18,6 +15,8 @@ function getStrokeWeight(v) {
           [2, .5, '#fc9272'];
 }
 
+// MAIN FUNCTION RUN ENTER
+// ====================================================================
 function runEnter() {
 
   myMap.off();
@@ -25,12 +24,10 @@ function runEnter() {
 
   var yearSelected = parseInt(selectButton.property("value"));
 
-  console.log(yearSelected);
+  // console.log(yearSelected);
   d3.json("sorted_unique_routes_"+yearSelected+".json").then(routes => {
-    console.log("sorted_unique_routes_"+yearSelected+".json")
-  // Once we get a response, send the data.features object to the createFeatures function
-    // console.log(routes[1])
-    // Define streetmap and darkmap layers
+
+    // Define base layers
     var streetView = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
       tileSize: 512,
@@ -53,30 +50,40 @@ function runEnter() {
       "Grayscale": grayscale,
     };
 
-    // MARKERS
+    // MARKERS LAYER
     // ============================================================
 
     var markers_to_plot = new L.LayerGroup();
-    for (var i = 0; i < Object.keys(markers).length; i++) {
-      var marker = markers[i];
+    d3.json("stationdata.json").then(markers => {
+
+    markers.stations.forEach(marker=> {
       L.marker(marker.location)
-        .bindPopup("<h1>" + marker.name + "</h1><hr>" + marker.districtName + "<br>Station ID: " + marker.id)
+        .bindPopup("<h5>" + marker.name + "</h5><hr>" + "Colonia: "+ marker.districtName + "<br>Station ID: " + marker.id)
+        .on('mouseover', function (e) {
+          this.openPopup()
+        })
+        .on('mouseout', function (e) {
+          this.closePopup()
+        })
         .addTo(markers_to_plot);
-    };
+        });
+    });
 
-    // COLONIAS
+    // COLONIAS LAYER
     // ============================================================
+    // var colonias_layer = new L.LayerGroup();
+    // d3.json("colonias.json").then(colonias => {
+    //   console.log(colonias);
+    //   for (var i = 0; i < Object.keys(colonias).length; i++) {
+    //     var colonia_data = colonias[i]['geo_shape'];
 
-    // var colonias = new L.LayerGroup();
-    // for (var i = 0; i < Object.keys(colonia_boundaries).length; i++) {
-    //   var colonia = colonia_boundaries[i]['geo_shape'];
-    //   console.log(colonia);
-    //   L.polygon([colonia], {
-    //     color: "purple",
-    //     fillColor: "purple",
-    //     fillOpacity: 0.75
-    //   }).addTo(colonias);
-    // };
+    //     L.polygon(colonia_data, {
+    //       color: "purple",
+    //       fillColor: "purple",
+    //       fillOpacity: 1
+    //     }).addTo(colonias_layer);
+    //   };
+    // });
 
     num_of_routes_to_plot = 250
 
@@ -105,11 +112,8 @@ function runEnter() {
   }).addTo(heat_to_plot);
 
 
-
     // ROUTES FROM SELECTED YEAR
     // ============================================================
-
-
     var routes_to_plot = new L.LayerGroup();
     for (var i = 0; i < num_of_routes_to_plot; i++) {
       var line = [
@@ -131,9 +135,8 @@ function runEnter() {
     var overlayMaps = {
       'Top Routes': routes_to_plot,
       'Station Markers': markers_to_plot,
-      'Heatmap Layer' : heat_to_plot
-      // 'Neighborhood Borders': colonias,
-
+      'Heatmap Layer' : heat_to_plot,
+      // 'Neighborhood Borders': colonias_layer,
     };
 
     var myMap = L.map("map", {
@@ -141,7 +144,7 @@ function runEnter() {
         19.4017, -99.1695
       ],
       zoom: 13,
-      layers: [streetView, routes_to_plot]
+      layers: [streetView, routes_to_plot, heat_to_plot]
     });
 
     L.control.layers(baseMaps, overlayMaps, {
