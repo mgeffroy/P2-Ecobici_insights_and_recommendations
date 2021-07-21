@@ -6,7 +6,7 @@ ID INTEGER PK
 NAME VARCHAR
 LAT FLOAT
 LON FLOAT
-districtName VARCHAR FK >- Colonias.NAME
+districtName VARCHAR
 
 Viajes
 -
@@ -26,14 +26,25 @@ NAME VARCHAR
 GeoShape VARCHAR
 Alcaldia VARCHAR
 
+Routes
+-
+Total_Rides Integer
+Start_Station Integer FK >- Estaciones.ID
+End_Station Integer FK >- Estaciones.ID
+
+
+
  ---------------------------
 |                           |
 |Schema creation code below!|
 |                           |
  ---------------------------
+-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
+
 
 CREATE TABLE "Estaciones" (
-    "ID" INTEGER   UNIQUE NOT NULL,
+    "ID" INTEGER   NOT NULL,
     "NAME" VARCHAR   NOT NULL,
     "LAT" FLOAT   NOT NULL,
     "LON" FLOAT   NOT NULL,
@@ -44,7 +55,7 @@ CREATE TABLE "Estaciones" (
 );
 
 CREATE TABLE "Viajes" (
-    "TRIP_ID" INTEGER  UNIQUE  NOT NULL,
+    "TRIP_ID" INTEGER   NOT NULL,
     "Genero_Usuario" VARCHAR   NOT NULL,
     "Edad_Usuario" INTEGER   NOT NULL,
     "Ciclo_Estacion_Retiro" INTEGER   NOT NULL,
@@ -58,7 +69,7 @@ CREATE TABLE "Viajes" (
 
 CREATE TABLE "Colonias" (
     "ID" INTEGER   NOT NULL,
-    "NAME" VARCHAR UNIQUE   NOT NULL,
+    "NAME" VARCHAR   NOT NULL,
     "GeoShape" VARCHAR   NOT NULL,
     "Alcaldia" VARCHAR   NOT NULL,
     CONSTRAINT "pk_Colonias" PRIMARY KEY (
@@ -66,12 +77,21 @@ CREATE TABLE "Colonias" (
      )
 );
 
-ALTER TABLE "Estaciones" ADD CONSTRAINT "fk_Estaciones_districtName" FOREIGN KEY("districtName")
-REFERENCES "Colonias" ("NAME");
+CREATE TABLE "Routes" (
+    "Total_Rides" Integer   NOT NULL,
+    "Start_Station" Integer   NOT NULL,
+    "End_Station" Integer   NOT NULL
+);
 
 ALTER TABLE "Viajes" ADD CONSTRAINT "fk_Viajes_Ciclo_Estacion_Retiro" FOREIGN KEY("Ciclo_Estacion_Retiro")
 REFERENCES "Estaciones" ("ID");
 
 ALTER TABLE "Viajes" ADD CONSTRAINT "fk_Viajes_Ciclo_Estacion_Arribo" FOREIGN KEY("Ciclo_Estacion_Arribo")
+REFERENCES "Estaciones" ("ID");
+
+ALTER TABLE "Routes" ADD CONSTRAINT "fk_Routes_Start_Station" FOREIGN KEY("Start_Station")
+REFERENCES "Estaciones" ("ID");
+
+ALTER TABLE "Routes" ADD CONSTRAINT "fk_Routes_End_Station" FOREIGN KEY("End_Station")
 REFERENCES "Estaciones" ("ID");
 
