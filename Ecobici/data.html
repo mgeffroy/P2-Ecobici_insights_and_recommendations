@@ -17,7 +17,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="index.html">Ecobici</a>
+    <a class="navbar-brand" href="index.html"> <img src="https://img.icons8.com/material-sharp/35/000000/bike-path--v2.png">Ecobici</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -50,7 +50,7 @@
   
   <!---Put project title in -->
   <br>
- <h1>Project Summary</h1>
+ <h1>Data and Datasets</h1>
  <br>
 
  <!--Create our first container -->   
@@ -68,8 +68,60 @@
 
    <!--- Close container-->
       </div>
+  
+      <div class="container">
+        <div class="row margin-top-50">
+          <div class="col-md-2">
+            <aside class="filters">
+              <div class="panel panel-default">
+                <div class="panel-heading">Filter Search</div>
+                <div class="panel-body">
+                  <form>
+                    <div class="form-group">
+                      <ul class="list-group" id="filters">
+                        <li class="filter list-group-item">
+                          <label for="date">Enter a Year</label>
+                          <input class="form-control" id="Yearname" type="text" placeholder="2012">
+                        </li>
+                        <li class="filter list-group-item">
+                          <label for="city">Enter a Month</label>
+                          <input class="form-control" id="monthname" type="text" placeholder="March">
+                        </li>
+                      </ul>
+                    </div>
+                    <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                    <button id="reset-btn" type="button" class="btn btn-default">Reset</button>
+                  </form>
+                </div>
+              </div>
+            </aside>
+          </div>
+          <div class="col-md-10">
+            <div id="table-area" class="">
+              <table id="bike-table" class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="table-head">Date</th>
+                    <th class="table-head">Station</th>
+                    <th class="table-head">Sex</th>
+                    <th class="table-head">Age</th>
+                    <th class="table-head">----</th>
+                    <th class="table-head">-----</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="static/js/data.js"></script>
+    <script src="static/js/app.js"></script>
+  </body>
+  
+  </html>
   
 
 </body>

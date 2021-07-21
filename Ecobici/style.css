@@ -1,4 +1,4 @@
-
+/*Nav-bar settings for all pages*/ 
 .nav-bar {
     padding: 5px;
     
@@ -9,7 +9,38 @@
         padding-right: 10px;
     }
 
-    
+/*Ids for index's first image with headers */    
+#first_image{
+        max-width: 100%;
+        height: auto;
+        opacity: .5;
+      }
+
+.container-fluid {
+    position: relative;
+    text-align: center;
+    color: black;
+      }
+
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+#img_h1{
+    font-size: 60px ;
+    font-weight: bolder;
+
+  }     
+
+#img_h2{
+    font-size: 35px;
+    text-shadow: currentColor;
+}
+/*Normal headers for sections*/
     h1 {
         text-align: center;
     }
