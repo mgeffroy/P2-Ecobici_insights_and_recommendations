@@ -4,6 +4,14 @@
 <head>
   <meta charset="utf-8">
   <title>Basic Map</title>
+  
+  <!--D3 cdn-->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,34 +22,30 @@
     crossorigin="" />
 
   
+  
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+
   <!-- API key -->
   <script type="text/javascript" src="config.js"></script>
   <!-- DATA -->
   <script type="text/javascript" src="ecobici_lista_stations.json"></script>
   <script type="text/javascript" src="colonias.json"></script>
   <!-- JS -->
-  <script type="text/javascript" src="logic.js"></script>
+  <script type="text/javascript" src="logicv2.js"></script>
 </body>
 
 </head>
 
 <body>
-
   <div class="container">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center">
+      <div class="col-md-10">
         <h1>Ecobici Routes</h1>
         <p>Use the interactive map below to explore the dataset</p>
       </div>
-    </div>
-    <div class="row">
+
+
       <div class="col-md-2">
         <div class="well text-center">
           <h5>Choose a year:</h5>
@@ -62,16 +66,12 @@
           </select>
         </div>
       </div>
-      <div class="col-md-10">
-        <div id="map"></div>
       </div>
-  </div>
+    </div>
 
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="./static/js/appv2.js"></script>
-  <!-- <script src="samples.json"></script> -->
-  
+      <div id="map"></div>
+
+
 </body>
 
 </html>
