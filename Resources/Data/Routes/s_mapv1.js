@@ -15,7 +15,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 }).addTo(myMap);
 
 // Store API query variables
-var markers_url = "static/temp_data/stationdata.json";
+var markers_url = "stationdata.json";
 
 // Grab the data with d3
 d3.json(markers_url).then(function(response) {

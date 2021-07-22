@@ -67,14 +67,14 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <p class="centered"><h1 class=>Ecobici Routes</h1></p>
+        <p class="centered"><h1>Ecobici Routes</h1></p>
 
       </div>
     </div>
 
       <div class="row">
       <div class="col-md-2">
-        <div class="well text-center">
+        <div class="card bg-secondary text-center">
           <h5>Choose a year:</h5>
           <select class="form-control" id="selYear" type="submit">
             <option value="2010">2010</option>
@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="col-md-10">
-        <div id="map"></div>
+        <div class="mapbox" id="routes_map"></div>
       </div>
     </div>
     </div>
@@ -108,6 +108,11 @@
   <!-- Leaflet heatmap plugin-->
   <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
 
+  <footer class="row">
+    <div class="col justify-content-center">
+        <p>Ecobici | Gobierno de la Ciudad de México (2021). Retrived from https://www.ecobici.cdmx.gob.mx/</p>  
+    </div>
+  </footer>
 
 </body>
 </html>

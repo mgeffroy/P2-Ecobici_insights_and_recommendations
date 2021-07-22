@@ -1,6 +1,6 @@
 
 // INITIALIZE MYMAP
-var myMap = L.map("map", {
+var myMap = L.map("routes_map", {
   center: [
     19.4017, -99.1695
   ],
@@ -141,8 +141,8 @@ function runEnter() {
       // 'Neighborhood Borders': colonias_layer,
 
     };
-
-    var myMap = L.map("map", {
+  
+    var myMap = L.map("routes_map", {
       center: [
         19.4017, -99.1695
       ],
