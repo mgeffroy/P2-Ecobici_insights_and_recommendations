@@ -60,7 +60,21 @@ def colonias(yeardata):
 
 @app.route("/routedata/<yeardata>")
 def routes(yeardata):
-    test=2
+    querystring="""Select v.ciclo_estacion_retiro, v.ciclo_estacion_arribo, count(v.ciclo_estacion_arribo) as trips,
+                    er.LAT as retiro_lat,er.LON as retiro_lon,
+                    ea.LAT as arribo_lat, ea.LON as arribo_lon 
+                    from Viajes v
+
+                    left join Estaciones er
+                    on v.ciclo_estacion_retiro=er.E_ID
+                    left join Estaciones ea
+                    on v.ciclo_estacion_arribo=ea.E_ID
+                    group by v.ciclo_estacion_retiro,v.ciclo_estacion_arribo,retiro_lat,retiro_lon,
+                    arribo_lat,arribo_lon 
+                    order by trips desc
+                    limit 100;"""
+
+    data=engine.execute(querystring)
 
 if __name__ == "__main__":
     app.run(debug=True)
