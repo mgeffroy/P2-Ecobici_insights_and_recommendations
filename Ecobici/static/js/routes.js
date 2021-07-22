@@ -15,6 +15,9 @@ function getStrokeWeight(v) {
           [2, .5, '#fc9272'];
 }
 
+var selectButton = d3.select("#selYear");
+selectButton.on("change", runEnter());
+
 // MAIN FUNCTION RUN ENTER
 // ====================================================================
 function runEnter() {
@@ -153,5 +156,3 @@ function runEnter() {
   });
 };
 
-var selectButton = d3.select("#selYear");
-selectButton.on("change", runEnter());
