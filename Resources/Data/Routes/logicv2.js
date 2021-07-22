@@ -137,6 +137,7 @@ function runEnter() {
       'Station Markers': markers_to_plot,
       'Heatmap Layer' : heat_to_plot,
       // 'Neighborhood Borders': colonias_layer,
+
     };
 
     var myMap = L.map("map", {
