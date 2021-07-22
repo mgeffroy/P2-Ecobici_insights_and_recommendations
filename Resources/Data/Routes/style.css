@@ -5,7 +5,7 @@ body {
 }
 
 /* set map, body, and html to 100% of the screen size */
-#map {
+#s_map {
   position: relative;
   border: 1px solid black;
   border-radius: 8px;
