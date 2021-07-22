@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Basic Map</title>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+
+
+
+  <!-- Our CSS -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <!-- API key -->
+  <script type="text/javascript" src="config.js"></script>
+  <!-- DATA -->
+  <script type="text/javascript" src="colonias.json"></script>
+
+  </body>
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <h1>Ecobici Routes</h1>
+        <p>Use the interactive map below to explore the dataset</p>
+      </div>
+
+
+      <div class="col-md-2">
+        <div class="well text-center">
+          <h5>Choose a year:</h5>
+          <select class="form-control" id="selYear" type="submit">
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <!-- <option value="2010" disabled selected>Year</option> -->
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="map"></div>
+
+  <!--D3 cdn-->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!-- JS -->
+  <script type="text/javascript" src="logicv2.js"></script>
+
+  <!-- Leaflet heatmap plugin-->
+  <script type="text/javascript" src="leaflet-heat.js"></script>
+
+
+</body>
+
+</html>
