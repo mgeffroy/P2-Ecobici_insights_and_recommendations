@@ -86,3 +86,59 @@
     .card-img-top { 
         border-radius: 40%;
     }
+
+/* SUBSCRIPTION */
+
+.contacto {
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.contacto .titulo {
+    color: #1a1c1d;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.contacto .formulario input[type="text"]
+.contacto .formulario input[type="email"]
+.contacto .formulario textarea {
+    padding: 15px;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contacto .formulario textarea {
+    height: 150px;
+    min-height: 150px;
+    max-height: 250px;
+}
+
+.contacto .formulario .boton {
+    background: #3da5e2;
+    border: none;
+    padding: 7px 30px;
+    color: #fff;
+    font-family: 'Catamaran', sans-serif;
+    cursor: pointer;
+    width: auto;
+    border-radius: 3px;
+}
+
+.contacto .formulario .boton:hover {
+    background: #1ba0ef;
+}
+
+/* Contacto */
+
+footer {
+    font-family: 'Catamaran', sans-serif;
+    padding: 5px 0;
+    background: #1e1e1e;
+    color: #fff;
+    letter-spacing: 2px;
+    text-align: center;
+}
