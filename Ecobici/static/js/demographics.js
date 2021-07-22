@@ -7,7 +7,10 @@ function logic(response) {
     var femalevaluesrange = femalevalues.map(i => (i[1] / 10) | 0);
     var malerangecount = count(malevaluesrange);
     var femalerangecount = count(femalevaluesrange);
-    console.log(Object.values(malerangecount))
+    // scatter plot
+    var fullrange = filtervalues.map(i => i[1]);
+    var fullcount = countfull(fullrange);
+    
 
     var trace1 = {
         x: Object.values(malerangecount),
@@ -41,11 +44,29 @@ function logic(response) {
     };
     
     Plotly.newPlot('gender', data, layout);
+
+    var trace1 = {
+        x: Object.keys(fullcount),
+        y: Object.values(fullcount),
+        mode: 'markers'
+        
+      };
+      
+      var data = [trace1];
+      
+      var layout = {
+        title: 'Marker Size and Color',
+        showlegend: false,
+        height: 600,
+        width: 600
+      };
+      
+      Plotly.newPlot('scatter', data, layout);
 }
 
 function count(values) {
     var count = { "e10": 0, "e20": 0, "e30": 0, "e40": 0, "e50": 0, "e60": 0, "e70": 0, "e80": 0 }
-    for (var i = 0; i < Object.keys(count).length; ++i) {
+    for (var i = 0; i < Object.keys(values).length; ++i) {
         // console.log(Object.keys(count)[i]);
     
         if(values[i] == 1)
@@ -72,10 +93,20 @@ function count(values) {
         if(values[i] == 8)
         count.e80++;
     }
-    // console.log(count)
     return count;
 }
 
+function countfull(values) {
+    var count = {}
+    for (var i = 0; i < Object.keys(values).length; ++i) {
+        if (String(values[i]) in count) {
+            count[String(values[i])]++;
+        } else {
+            count[String(values[i])] = 1;
+        }
+    }
+    return count;
+}
 d3.json("static/js/demographics.json").then(logic);
 
 
