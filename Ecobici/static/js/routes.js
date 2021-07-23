@@ -142,6 +142,7 @@ function runEnter() {
         .addTo(routes_to_plot);
     };
 
+    
     // CREATE MAP
     var overlayMaps = {
       'Top Routes': routes_to_plot,

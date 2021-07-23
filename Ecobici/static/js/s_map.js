@@ -15,7 +15,7 @@ var streetView = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x
 }).addTo(myMap);
 
 // Store API query variables
-var markers_url = "static/temp_data/stationdata.json";
+var markers_url = "http://127.0.0.1:5000/stationdata";
 
 // Grab the data with d3
 d3.json(markers_url).then(function (response) {
@@ -24,17 +24,20 @@ d3.json(markers_url).then(function (response) {
   var markers = L.markerClusterGroup();
 
   // Loop through data
-  for (var i = 0; i < Object.keys(response.stations).length; i++) {
-
+  for (var i = 0; i < response.length; i++) {
+    console.log(response.length)
     // Set the data location property to a variable
-    var location = response.stations[i].location;
+    var location = L.latLng(response[i]['LAT'], response[i]['Lon']);
+    console.log(response[i]['LAT'], response[i]['Lon'])    
+    console.log(location)
+    // var latlng = L.latLng(50.5, 30.5);
 
     // Check for location property
     if (location) {
 
       // Add a new marker to the cluster group and bind a pop-up
       markers.addLayer(L.marker(location)
-        .bindPopup("<h5>" + response.stations[i].name + "</h5><hr>" + "Colonia: " + response.stations[i].districtName + "<br>Station ID: " + response.stations[i].id)
+        .bindPopup("<h5>" + response[i]['Name'] + "</h5><hr>" + "Colonia: " + response[i]['districtName'] + "<br>Station ID: " + response[i]['ID'])
         .on('mouseover', function (e) {
           this.openPopup()
         })
