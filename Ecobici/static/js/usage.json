@@ -1,0 +1,42 @@
+[
+    {
+        "Genero_Usuario": "M",
+        "Edad_Usuario": 64,
+        "Ciclo_Estacion_Retiro": 27,
+        "Ciclo_Estacion_Arribo": 35,
+        "Usage_Timestamp": "Fri,26 Feb 2010 00:00:00 GMT",
+        "Duration": 16.7
+    },
+    {
+        "Genero_Usuario": "M",
+        "Edad_Usuario": 28,
+        "Ciclo_Estacion_Retiro": 4,
+        "Ciclo_Estacion_Arribo": 4,
+        "Usage_Timestamp": "Sun,28 Feb 2010 00:00:00 GMT",
+        "Duration": 2.6
+    },
+    {
+        "Genero_Usuario": "F",
+        "Edad_Usuario": 30,
+        "Ciclo_Estacion_Retiro": 15,
+        "Ciclo_Estacion_Arribo": 20,
+        "Usage_Timestamp": "Mon,01 Mar 2010 00:00:00 GMT",
+        "Duration": 12.8
+    },
+    {
+        "Genero_Usuario": "M",
+        "Edad_Usuario": 30,
+        "Ciclo_Estacion_Retiro": 27,
+        "Ciclo_Estacion_Arribo": 55,
+        "Usage_Timestamp": "Tue,02 Mar 2010 00:00:00 GMT",
+        "Duration": 17.4
+    },
+    {
+        "Genero_Usuario": "M",
+        "Edad_Usuario": 29,
+        "Ciclo_Estacion_Retiro": 5054,
+        "Ciclo_Estacion_Arribo": 85,
+        "Usage_Timestamp": "Thu,04 Mar 2010 00:00:00 GMT",
+        "Duration": 2.9
+    }
+]
