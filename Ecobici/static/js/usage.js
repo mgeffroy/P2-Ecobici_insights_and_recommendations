@@ -1,10 +1,34 @@
 
 function logic(response) {
-    var filtervalues = response.map(i => [i.Genero_Usuario, Date(i.Usage_Timestamp)]);
-    var malevalues = filtervalues.filter(i => i[0] === "M");
-    var femalevalues = filtervalues.filter(i => i[0] === "F");
-    
-    console.log(filtervalues[1].getMonth())
+    // console.log(response)
+    var malevalues = response.filter(i => i.Genero_Usuario === "M");
+    var femalevalues = response.filter(i => i.Genero_Usuario === "F");
+
+    console.log(femalevalues,malevalues)
+
+    var trace1 = {
+        x: malevalues.map(i => i.Usage_Year),
+        y: malevalues.map(i => i.User_Count),
+        name: 'Male',
+        type: 'scatter'
+      };
+      
+      var trace2 = {
+        x: femalevalues.map(i => i.Usage_Year),
+        y: femalevalues.map(i => i.User_Count),
+        name: 'Female',
+        type: 'scatter'
+      };
+      
+      var data = [trace1, trace2];
+      
+      var layout = {
+        title: 'Total Number of user by Year & Gender'
+
+    };
+
+      Plotly.newPlot('usagey', data,layout);
+
 }
 
-    d3.json("static/js/usage.json").then(logic);
+    d3.json("static/js/usagey.json").then(logic);

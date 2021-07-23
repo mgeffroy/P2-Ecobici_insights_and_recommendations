@@ -3,28 +3,59 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from flask import Flask, redirect,jsonify
+from flask import Flask,jsonify,render_template
 from config import password
+import datetime
 import pandas as pd
+from flask_cors import CORS
+
 engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
 
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
 app = Flask(__name__)
-
-
+CORS(app)
 
 @app.route("/")
 def index():
-    test=1
+    return render_template("index.html")
 
+@app.route("/data")
+def data():
+    return render_template("data.html")
 
-@app.route("/stationdata/")
-def stationdata(yeardata):
+@app.route("/demographics")
+def demographics():
+    return render_template("demographics.html")
+
+@app.route("/routes")
+def routespage():
+    return render_template("routes.html")
+
+@app.route("/smap")
+def smappage():
+    return render_template("smap.html")
+
+@app.route("/usage")
+def usagepage():
+    return render_template("usage.html")
+
+@app.route("/stationdata")
+def stationdata():
     querystring="select * from Estaciones"
     data=engine.execute(querystring)
-    return jsonify(data)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict['ID']= element.e_id
+        getdict['Name']= element.name
+        getdict['LAT']= element.lat
+        getdict['Lon']= element.lon
+        getdict['districtName']= element.districtname
+        jsondata.append(getdict) 
+
+    return jsonify(jsondata)
 
 
 @app.route("/genderdata/<yeardata>")
@@ -32,11 +63,70 @@ def genderdata(yeardata):
     test=2
 @app.route("/viajesdata/<yeardata>")
 def viajesdata(yeardata):
-    querystring=f'select genero_usuario as"Genero_Usuario"+,edad_usuario as "Edad_Usuario", ciclo_estacion_retiro as "Ciclo_Estacion_Retiro", ciclo_estacion_arribo as "Ciclo_Estacion_Arribo", usage_timestamp as "Usage_Timestamp", duration as "Duration" from viajes where '+f"usage_timestamp >= '{yeardata}-01-01' and usage_timestamp <'{yeardata+1}-01-01'"
+    yeardata=int(yeardata)
+    yeardata2=yeardata+1
+    querystring='select * from viajes where '+f"usage_timestamp >= '{yeardata}-01-01' and usage_timestamp <'{yeardata2}-01-01'"
     data=engine.execute(querystring)
-    return jsonify(data)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Edad_Usuario"]= element.edad_usuario
+        getdict["Ciclo_Estacion_Retiro"]= element.ciclo_estacion_retiro
+        getdict["Ciclo_Estacion_Arribo"]= element.ciclo_estacion_arribo
+        getdict["Usage_Timestamp"]= element.usage_timestamp
+        getdict["Duration"]= element.duration
+        jsondata.append(getdict)
+
+    return jsonify(jsondata)
+
+@app.route("/yearlygenderdata/")
+def yearlygender():
+    querystring="""select extract(year from usage_timestamp) as usage_year, genero_usuario, count(genero_usuario) as users  from viajes
+                    group by usage_year,genero_usuario
+                    order by usage_year"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Year"]= element.usage_year
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)
 
 
+@app.route("/genderfullmonthdata/")
+def fullmonthlygender():
+    querystring="""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
+                group by usage_month,genero_usuario
+                order by usage_month"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Month"]= element.usage_month
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)
+
+@app.route("/genderyearmonthdata/<yeardata>")
+def yearmonthlygender(yeardata):
+    yeardata=int(yeardata)
+    querystring=f"""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
+                where usage_timestamp >= '{yeardata}-01-01' and usage_timestamp < '{yeardata+1}-01-01'
+                group by usage_month,genero_usuario
+                order by usage_month"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Month"]= element.usage_month
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)    
 
 @app.route("/coloniadata/<yeardata>")
 def colonias(yeardata):
@@ -44,7 +134,10 @@ def colonias(yeardata):
 
 @app.route("/routedata/<yeardata>")
 def routes(yeardata):
-    querystring="""Select v.ciclo_estacion_retiro, v.ciclo_estacion_arribo, count(v.ciclo_estacion_arribo) as trips,
+    yeardata=int(yeardata)
+    yeardata2=yeardata+1
+
+    querystring=f"""Select v.ciclo_estacion_retiro, v.ciclo_estacion_arribo, count(v.ciclo_estacion_arribo) as trips,
                     er.LAT as retiro_lat,er.LON as retiro_lon,
                     ea.LAT as arribo_lat, ea.LON as arribo_lon 
                     from Viajes v                   
@@ -52,14 +145,27 @@ def routes(yeardata):
                     on v.ciclo_estacion_retiro=er.E_ID
                     left join Estaciones ea
                     on v.ciclo_estacion_arribo=ea.E_ID
-					where usage_timestamp >= '2014-01-01' and usage_timestamp < '2015-01-01'
+					where usage_timestamp >= '{yeardata}-01-01' and usage_timestamp < '{yeardata2}-01-01'
                     group by v.ciclo_estacion_retiro,v.ciclo_estacion_arribo,retiro_lat,retiro_lon,
                     arribo_lat,arribo_lon 
                     order by trips desc
                     limit 250;"""
 
     data=engine.execute(querystring)
-    return jsonify(data)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Ciclo_Estacion_Retiro"]=element.ciclo_estacion_retiro
+        getdict["Ciclo_Estacion_Arribo"]=element.ciclo_estacion_arribo
+        getdict["Trips"]=element.trips
+        getdict["Retiro_Lat"]=element.retiro_lat
+        getdict["Retiro_Lon"]=element.retiro_lon
+        getdict["Arribo_Lat"]=element.arribo_lat
+        getdict["Arribo_Lon"]=element.arribo_lon
+        jsondata.append(getdict)
+
+    return jsonify(jsondata)
 
 if __name__ == "__main__":
     app.run(debug=True)
+#testing to update again

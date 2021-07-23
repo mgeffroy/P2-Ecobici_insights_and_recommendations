@@ -51,8 +51,10 @@
          
     h2 {
         margin: 5px;
+        margin-left: 5px;
         padding-top: 5px;
         padding-bottom: 5px;
+        padding-left: 5px;
     }
     
     h3 {
@@ -69,6 +71,24 @@
     padding: 15px;
 }
 
+/*Bike headers */
+#classic {
+    background-color: rgb(rgb(230, 142, 142), green, blue);
+}
+#classic {
+    background-color: rgb(rgb(230, 142, 142), rgb(111, 221, 111), blue);
+}
+
+.img-bike{
+    max-width: 100%;
+    max-height: 100%;
+    display: block; /* remove extra space below image */
+}
+
+.bike-body{
+    width: 200px;
+    height: 120px;
+}
 
     .links{
         color: gainsboro;
@@ -82,3 +102,67 @@
     width: 100%;  /* This means "100% of the width of its container", the .col-md-8 */
     }
     
+
+    .img-about { 
+        border-radius: 40%;
+    }
+
+    #Mariana {
+        size: 30px;
+    }
+
+/* SUBSCRIPTION */
+
+.contacto {
+    border-top: 1px solid #cbcbcb;
+    border-bottom: 1px solid #cbcbcb;
+}
+
+.contacto .titulo {
+    color: #1a1c1d;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.contacto .formulario input[type="text"]
+.contacto .formulario input[type="email"]
+.contacto .formulario textarea {
+    padding: 15px;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.contacto .formulario textarea {
+    height: 150px;
+    min-height: 150px;
+    max-height: 250px;
+}
+
+.contacto .formulario .boton {
+    background: #3da5e2;
+    border: none;
+    padding: 7px 30px;
+    color: #fff;
+    font-family: 'Catamaran', sans-serif;
+    cursor: pointer;
+    width: auto;
+    border-radius: 3px;
+}
+
+.contacto .formulario .boton:hover {
+    background: #1ba0ef;
+}
+
+/* Contacto */
+
+footer {
+    font-family: 'Catamaran', sans-serif;
+    padding: 5px 0;
+    background: #1e1e1e;
+    color: #fff;
+    letter-spacing: 2px;
+    text-align: center;
+}
