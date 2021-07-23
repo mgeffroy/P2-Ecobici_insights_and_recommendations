@@ -4,8 +4,9 @@ var myMap = L.map("routes_map", {
   center: [
     19.4017, -99.1695
   ],
-  zoom: 13
+  zoom: 13,
 });
+
 // HELPER FUNCTION TO GET STROKE WEIGHT, OPACITY AND COLORS
 function getStrokeWeight(v) {
   return v > 40 ? [6, 1, '#99000d'] :
@@ -16,14 +17,21 @@ function getStrokeWeight(v) {
 }
 
 var selectButton = d3.select("#selYear");
-selectButton.on("change", runEnter());
+selectButton.on("change", runEnter);
 
 // MAIN FUNCTION RUN ENTER
 // ====================================================================
 function runEnter() {
 
-  myMap.off();
-  myMap.remove();
+  // myMap.off();
+  // myMap.remove();
+  // myMap.invalidateSize()
+  d3.select("#routes_map").html(" ");
+  var container = L.DomUtil.get('routes_map');
+  if(container != null){
+     container._leaflet_id = null;
+  }
+
 
   var yearSelected = parseInt(selectButton.property("value"));
 
@@ -73,19 +81,20 @@ function runEnter() {
 
     // COLONIAS LAYER
     // ============================================================
-    // var colonias_layer = new L.LayerGroup();
-    // d3.json("colonias.json").then(colonias => {
-    //   console.log(colonias);
-    //   for (var i = 0; i < Object.keys(colonias).length; i++) {
-    //     var colonia_data = colonias[i]['geo_shape'];
+    var colonias_layer = new L.LayerGroup();
+    d3.json("static/temp_data/colonias.json").then(colonias => {
+      console.log(colonias);
+      for (var i = 0; i < Object.keys(colonias).length; i++) {
+        var colonia_data = colonias[i]['geo_shape'];
 
-    //     L.polygon(colonia_data, {
-    //       color: "purple",
-    //       fillColor: "purple",
-    //       fillOpacity: 1
-    //     }).addTo(colonias_layer);
-    //   };
-    // });
+        L.polygon(colonia_data, {
+          color: "#C73824",
+          fillColor: "transparent",
+          fillOpacity: 0,
+          weight: .5
+        }).addTo(colonias_layer);
+      };
+    });
 
     num_of_routes_to_plot = 250
 
@@ -133,21 +142,22 @@ function runEnter() {
         .addTo(routes_to_plot);
     };
 
+    
     // CREATE MAP
     var overlayMaps = {
       'Top Routes': routes_to_plot,
       'Station Markers': markers_to_plot,
       'Heatmap Layer' : heat_to_plot,
-      // 'Neighborhood Borders': colonias_layer,
+      'Neighborhood Borders': colonias_layer,
 
     };
   
-    var myMap = L.map("routes_map", {
+    myMap = L.map("routes_map", {
       center: [
         19.4017, -99.1695
       ],
       zoom: 13,
-      layers: [streetView, routes_to_plot, heat_to_plot]
+     layers: [streetView, routes_to_plot, heat_to_plot]
     });
 
     L.control.layers(baseMaps, overlayMaps, {
@@ -156,3 +166,4 @@ function runEnter() {
   });
 };
 
+runEnter()

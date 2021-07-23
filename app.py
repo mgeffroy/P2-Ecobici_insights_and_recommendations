@@ -3,17 +3,44 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from flask import Flask, redirect,jsonify
+from flask import Flask,jsonify,render_template
 from config import password
 import datetime
 import pandas as pd
+from flask_cors import CORS
+import ast
+
 engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
 
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
 app = Flask(__name__)
+CORS(app)
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/data")
+def data():
+    return render_template("data.html")
+
+@app.route("/demographics")
+def demographics():
+    return render_template("demographics.html")
+
+@app.route("/routes")
+def routespage():
+    return render_template("routes.html")
+
+@app.route("/smap")
+def smappage():
+    return render_template("smap.html")
+
+@app.route("/usage")
+def usagepage():
+    return render_template("usage.html")
 
 @app.route("/stationdata")
 def stationdata():
@@ -44,22 +71,77 @@ def viajesdata(yeardata):
     jsondata=[]
     for element in data:
         getdict={}
-        getdict['"Genero_Usuario"']= element.genero_usuario
-        getdict['"Edad_Usuario"']= element.edad_usuario
-        getdict['"Ciclo_Estacion_Retiro"']= element.ciclo_estacion_retiro
-        getdict['"Ciclo_Estacion_Arribo"']= element.ciclo_estacion_arribo
-        getdict['"Usage_Timestamp"']= element.usage_timestamp
-        getdict['"Duration"']= element.duration
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Edad_Usuario"]= element.edad_usuario
+        getdict["Ciclo_Estacion_Retiro"]= element.ciclo_estacion_retiro
+        getdict["Ciclo_Estacion_Arribo"]= element.ciclo_estacion_arribo
+        getdict["Usage_Timestamp"]= element.usage_timestamp
+        getdict["Duration"]= element.duration
         jsondata.append(getdict)
 
     return jsonify(jsondata)
 
+@app.route("/yearlygenderdata/")
+def yearlygender():
+    querystring="""select extract(year from usage_timestamp) as usage_year, genero_usuario, count(genero_usuario) as users  from viajes
+                    group by usage_year,genero_usuario
+                    order by usage_year"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Year"]= element.usage_year
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)
 
 
-@app.route("/coloniadata/<yeardata>")
-def colonias(yeardata):
-    test=2
+@app.route("/genderfullmonthdata/")
+def fullmonthlygender():
+    querystring="""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
+                group by usage_month,genero_usuario
+                order by usage_month"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Month"]= element.usage_month
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)
 
+@app.route("/genderyearmonthdata/<yeardata>")
+def yearmonthlygender(yeardata):
+    yeardata=int(yeardata)
+    querystring=f"""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
+                where usage_timestamp >= '{yeardata}-01-01' and usage_timestamp < '{yeardata+1}-01-01'
+                group by usage_month,genero_usuario
+                order by usage_month"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Month"]= element.usage_month
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)    
+
+@app.route("/coloniadata")
+def colonias():
+    querystring="select * from colonias"
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["nombre"]=element.NAME
+        getdict["geo_shape"]=ast.literal_eval(element.GeoShape)
+        getdict["alcaldia"]=element.Alcaldia
+        jsondata.append(getdict)
+
+    return jsonify(jsondata)
 @app.route("/routedata/<yeardata>")
 def routes(yeardata):
     yeardata=int(yeardata)
@@ -94,5 +176,10 @@ def routes(yeardata):
 
     return jsonify(jsondata)
 
+
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+#testing to update again
