@@ -83,8 +83,12 @@
     }
     
 
-    .card-img-top { 
+    .img-about { 
         border-radius: 40%;
+    }
+
+    #Mariana {
+        size: 30px;
     }
 
 /* SUBSCRIPTION */
