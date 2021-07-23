@@ -8,6 +8,7 @@ from config import password
 import datetime
 import pandas as pd
 from flask_cors import CORS
+import ast
 
 engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
 
@@ -128,10 +129,19 @@ def yearmonthlygender(yeardata):
         jsondata.append(getdict)
     return jsonify(jsondata)    
 
-@app.route("/coloniadata/<yeardata>")
-def colonias(yeardata):
-    test=2
+@app.route("/coloniadata")
+def colonias():
+    querystring="select * from colonias"
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["nombre"]=element.NAME
+        getdict["geo_shape"]=ast.literal_eval(element.GeoShape)
+        getdict["alcaldia"]=element.Alcaldia
+        jsondata.append(getdict)
 
+    return jsonify(jsondata)
 @app.route("/routedata/<yeardata>")
 def routes(yeardata):
     yeardata=int(yeardata)
@@ -165,6 +175,10 @@ def routes(yeardata):
         jsondata.append(getdict)
 
     return jsonify(jsondata)
+
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
