@@ -1,11 +1,12 @@
 
-// // INITIALIZE MYMAP
-// var myMap = L.map("routes_map", {
-//   center: [
-//     19.4017, -99.1695
-//   ],
-//   zoom: 13
-// });
+// INITIALIZE MYMAP
+var myMap = L.map("routes_map", {
+  center: [
+    19.4017, -99.1695
+  ],
+  zoom: 13,
+});
+
 // HELPER FUNCTION TO GET STROKE WEIGHT, OPACITY AND COLORS
 function getStrokeWeight(v) {
   return v > 40 ? [6, 1, '#99000d'] :
@@ -24,6 +25,13 @@ function runEnter() {
 
   // myMap.off();
   // myMap.remove();
+  // myMap.invalidateSize()
+  d3.select("#routes_map").html(" ");
+  var container = L.DomUtil.get('routes_map');
+  if(container != null){
+     container._leaflet_id = null;
+  }
+
 
   var yearSelected = parseInt(selectButton.property("value"));
 
@@ -145,12 +153,12 @@ function runEnter() {
 
     };
   
-    var myMap = L.map("routes_map", {
+    myMap = L.map("routes_map", {
       center: [
         19.4017, -99.1695
       ],
       zoom: 13,
-      layers: [streetView, routes_to_plot, heat_to_plot]
+     layers: [streetView, routes_to_plot, heat_to_plot]
     });
 
     L.control.layers(baseMaps, overlayMaps, {
@@ -159,3 +167,4 @@ function runEnter() {
   });
 };
 
+runEnter()
