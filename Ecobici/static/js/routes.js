@@ -85,9 +85,7 @@ function runEnter() {
     d3.json("static/temp_data/colonias.json").then(colonias => {
       console.log(colonias);
       for (var i = 0; i < Object.keys(colonias).length; i++) {
-        var colonia_data = colonias[i]['geo_shape'].map(arr => 
-          [arr[1], arr[0]]
-          );
+        var colonia_data = colonias[i]['geo_shape'];
 
         L.polygon(colonia_data, {
           color: "#C73824",
