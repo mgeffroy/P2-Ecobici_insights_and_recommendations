@@ -3,17 +3,27 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
-from flask import Flask, redirect,jsonify
+from flask import Flask, redirect,jsonify,render_template
 from config import password
 import datetime
 import pandas as pd
+from flask_cors import CORS
+
 engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
 
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
 app = Flask(__name__)
+CORS(app)
 
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/data")
+def data():
+    return render_template("data.html")
 
 @app.route("/stationdata")
 def stationdata():
@@ -44,12 +54,12 @@ def viajesdata(yeardata):
     jsondata=[]
     for element in data:
         getdict={}
-        getdict['"Genero_Usuario"']= element.genero_usuario
-        getdict['"Edad_Usuario"']= element.edad_usuario
-        getdict['"Ciclo_Estacion_Retiro"']= element.ciclo_estacion_retiro
-        getdict['"Ciclo_Estacion_Arribo"']= element.ciclo_estacion_arribo
-        getdict['"Usage_Timestamp"']= element.usage_timestamp
-        getdict['"Duration"']= element.duration
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Edad_Usuario"]= element.edad_usuario
+        getdict["Ciclo_Estacion_Retiro"]= element.ciclo_estacion_retiro
+        getdict["Ciclo_Estacion_Arribo"]= element.ciclo_estacion_arribo
+        getdict["Usage_Timestamp"]= element.usage_timestamp
+        getdict["Duration"]= element.duration
         jsondata.append(getdict)
 
     return jsonify(jsondata)

@@ -7,7 +7,7 @@ var filterButton = d3.select("#filter-btn");
 
 function handleChange(event) {
 
-    d3.json("/viajesdata/2019").then(logic);
+    d3.json("http://127.0.0.1:5000/viajesdata/2019").then(logic);
     
 };
 
