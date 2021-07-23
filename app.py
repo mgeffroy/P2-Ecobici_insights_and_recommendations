@@ -30,15 +30,15 @@ def demographics():
     return render_template("demographics.html")
 
 @app.route("/routes")
-def routes():
+def routespage():
     return render_template("routes.html")
 
 @app.route("/smap")
-def routes():
+def smappage():
     return render_template("smap.html")
 
 @app.route("/usage")
-def routes():
+def usagepage():
     return render_template("usage.html")
 
 @app.route("/stationdata")
@@ -80,7 +80,53 @@ def viajesdata(yeardata):
 
     return jsonify(jsondata)
 
+@app.route("/yearlygenderdata/")
+def yearlygender():
+    querystring="""select extract(year from usage_timestamp) as usage_year, genero_usuario, count(genero_usuario) as users  from viajes
+                    group by usage_year,genero_usuario
+                    order by usage_year"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Year"]= element.usage_year
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)
 
+
+@app.route("/genderfullmonthdata/")
+def fullmonthlygender():
+    querystring="""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
+                group by usage_month,genero_usuario
+                order by usage_month"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Month"]= element.usage_month
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)
+
+@app.route("/genderyearmonthdata/<yeardata>")
+def yearmonthlygender(yeardata):
+    yeardata=int(yeardata)
+    querystring=f"""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
+                where usage_timestamp >= '{yeardata}-01-01' and usage_timestamp < '{yeardata+1}-01-01'
+                group by usage_month,genero_usuario
+                order by usage_month"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Usage_Month"]= element.usage_month
+        getdict["User_Count"]= element.users
+        jsondata.append(getdict)
+    return jsonify(jsondata)    
 
 @app.route("/coloniadata/<yeardata>")
 def colonias(yeardata):
