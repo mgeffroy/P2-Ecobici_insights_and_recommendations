@@ -51,8 +51,10 @@
          
     h2 {
         margin: 5px;
+        margin-left: 5px;
         padding-top: 5px;
         padding-bottom: 5px;
+        padding-left: 5px;
     }
     
     h3 {
@@ -69,6 +71,24 @@
     padding: 15px;
 }
 
+/*Bike headers */
+#classic {
+    background-color: rgb(rgb(230, 142, 142), green, blue);
+}
+#classic {
+    background-color: rgb(rgb(230, 142, 142), rgb(111, 221, 111), blue);
+}
+
+.img-bike{
+    max-width: 100%;
+    max-height: 100%;
+    display: block; /* remove extra space below image */
+}
+
+.bike-body{
+    width: 200px;
+    height: 120px;
+}
 
     .links{
         color: gainsboro;
@@ -83,8 +103,12 @@
     }
     
 
-    .card-img-top { 
+    .img-about { 
         border-radius: 40%;
+    }
+
+    #Mariana {
+        size: 30px;
     }
 
 /* SUBSCRIPTION */
