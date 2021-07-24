@@ -5,7 +5,7 @@
 <!--Link to bootstrap and css file to change formatting-->
 <link rel="stylesheet" href="https://bootswatch.com/5/simplex/bootstrap.min.css">
 <link rel="stylesheet" href="static/glider.css">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/static/css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
@@ -19,30 +19,30 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="index.html"><img src="https://img.icons8.com/material-sharp/35/000000/bike-path--v2.png">Ecobici</a>
+    <a class="navbar-brand" href="/"><img src="https://img.icons8.com/material-sharp/35/000000/bike-path--v2.png">Ecobici</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="s_map.html">Station Map</a>
+          <a class="nav-link active" aria-current="page" href="s_map">Station Map</a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Visualizations
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="usage.html">Usage</a></li>
-              <li><a class="dropdown-item" href="demographics.html">Demographics</a></li>
-              <li><a class="dropdown-item" href='routes.html'>Routes</a></li>
+              <li><a class="dropdown-item" href="usage">Usage</a></li>
+              <li><a class="dropdown-item" href="demographics">Demographics</a></li>
+              <li><a class="dropdown-item" href='routes'>Routes</a></li>
             </ul>
           </li>
         <li class="nav-item">
-          <a class="nav-link" href="data.html">Data</a>
+          <a class="nav-link" href="data">Data</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about.html">About us</a>
+          <a class="nav-link" href="about">About us</a>
         </li>
       </ul>
   
@@ -69,7 +69,7 @@
           <div class="card text-white bg-success mb-3">
             <h3 class="card-header">Mariana Geffroy</h3>
               <div class="card-body">
-               <img src="Images/mariana-geffroy-profile-photo.jpg" class="card-img-top img-about" id = "Mariana" alt="Mariana Geffroy Profile Photo">
+               <img src="/static/Images/mariana-geffroy-profile-photo.jpg" class="card-img-top img-about" id = "Mariana" alt="Mariana Geffroy Profile Photo">
                 <p class="card-text">Veterinarian interested in epidemiology, infectious disease, sustainability and data analysis. </p>
                 <p>
                   <ul>
@@ -83,7 +83,7 @@
         <div class="card bg-secondary mb-3">
           <h3 class="card-header">Salvador Del Cos</h3>
             <div class="card-body">
-             <img src="Images/salvador-profile-photo.jpg" class="card-img-top img-about" alt="Salvador Profile Photo">
+             <img src="/static/Images/salvador-profile-photo.jpg" class="card-img-top img-about" alt="Salvador Profile Photo">
               <p class="card-text">Engineer and Data Analyst that enjoys figuring out to clean and process new datasets.</p>
               <p>
                 <ul>
@@ -98,7 +98,7 @@
           <h3 class="card-header">Kenneth C. Andersen</h3>
  
             <div class="card-body">
-             <img src="Images/kenneth-c-andersen-profile-photo.jpeg" class="card-img-top img-about" alt="Kenneth C. Andersen">
+             <img src="/static/Images/kenneth-c-andersen-profile-photo.jpeg" class="card-img-top img-about" alt="Kenneth C. Andersen">
               <p class="card-text">Data scientist with 8 years of Organizational Development consulting experience. </p>
               <p>
                 <ul>
@@ -114,7 +114,7 @@
           <h3 class="card-header">Gustavo Maldonado</h3>
  
             <div class="card-body">
-             <img src="Images/gustavo-maldonado-profile-photo.jpg" class="card-img-top img-about" alt="Gustavo Maldonado">
+             <img src="/static/Images/gustavo-maldonado-profile-photo.jpg" class="card-img-top img-about" alt="Gustavo Maldonado">
               <p class="card-text">Corporate Finance & venturing into Data Analytics</p>
               <p>
                 <ul>
@@ -129,7 +129,7 @@
           <h3 class="card-header">Uriel Arriaga</h3>
  
             <div class="card-body">
-             <img src="Images/uriel-arriaga-profile-photo.jpg" class="card-img-top img-about" alt="Uriel">
+             <img src="/static/Images/uriel-arriaga-profile-photo.jpg" class="card-img-top img-about" alt="Uriel">
               <p class="card-text">Technologist, Cloud Engineer, Data Scientist, Problem Solver</p>
               <p>
                 <ul>
@@ -147,7 +147,7 @@
  <br>
  <br>
 
- <script src="static/js/glider.min.js"></script>
+ <script src="/static/js/glider.min.js"></script>
  
  <script>
  new Glider(document.querySelector('.glider'), {
