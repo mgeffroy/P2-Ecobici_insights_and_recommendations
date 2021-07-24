@@ -1,68 +1,77 @@
 
 function logic(response) {
-    // console.log(response)
-    var malevalues = response.filter(i => i.Genero_Usuario === "M");
-    var femalevalues = response.filter(i => i.Genero_Usuario === "F");
+  // console.log(response)
+  var malevalues = response.filter(i => i.Genero_Usuario === "M");
+  var femalevalues = response.filter(i => i.Genero_Usuario === "F");
 
-    console.log(femalevalues,malevalues)
+  // console.log(femalevalues, malevalues)
 
-    var trace1 = {
-        x: malevalues.map(i => i.Usage_Year),
-        y: malevalues.map(i => i.User_Count),
-        name: 'Male',
-        type: 'scatter'
-      };
-      
-      var trace2 = {
-        x: femalevalues.map(i => i.Usage_Year),
-        y: femalevalues.map(i => i.User_Count),
-        name: 'Female',
-        type: 'scatter'
-      };
-      
-      var data = [trace1, trace2];
-      
-      var layout = {
-        title: 'Total Number of user by Year & Gender'
+  var trace1 = {
+    x: malevalues.map(i => i.Usage_Year),
+    y: malevalues.map(i => i.User_Count),
+    name: 'Male',
+    type: 'scatter'
+  };
 
-    };
+  var trace2 = {
+    x: femalevalues.map(i => i.Usage_Year),
+    y: femalevalues.map(i => i.User_Count),
+    name: 'Female',
+    type: 'scatter'
+  };
 
-      Plotly.newPlot('usagey', data,layout);
+  var data = [trace1, trace2];
+
+  var layout = {
+    title: 'Total Number of user by Year & Gender'
+
+  };
+
+  Plotly.newPlot('usagey', data, layout);
 
 }
 
-    d3.json("static/js/usagey.json").then(logic);
+d3.json("static/js/usagey.json").then(logic);
 
-    function logicmonth(response) {
-        // console.log(response)
-        var malevalues = response.filter(i => i.Genero_Usuario === "M");
-        var femalevalues = response.filter(i => i.Genero_Usuario === "F");
-    
-        console.log(femalevalues,malevalues)
-    
-        var trace1 = {
-            x: malevalues.map(i => i.Usage_Month),
-            y: malevalues.map(i => i.User_Count),
-            name: 'Male',
-            type: 'scatter'
-          };
-          
-          var trace2 = {
-            x: femalevalues.map(i => i.Usage_Month),
-            y: femalevalues.map(i => i.User_Count),
-            name: 'Female',
-            type: 'scatter'
-          };
-          
-          var data = [trace1, trace2];
-          
-          var layout = {
-            title: 'Total Number of user by Year & Gender'
-    
-        };
-    
-          Plotly.newPlot('usagem', data,layout);
-    
-    }
-    
-        d3.json("static/js/usagem.json").then(logicmonth);
+function logicmonth(response) {
+  // console.log(response)
+  var malevalues = response.filter(i => i.Genero_Usuario === "M");
+  var femalevalues = response.filter(i => i.Genero_Usuario === "F");
+
+  // console.log(femalevalues, malevalues)
+
+  var trace1 = {
+    x: malevalues.map(i => i.Usage_Month),
+    y: malevalues.map(i => i.User_Count),
+    name: 'Male',
+    type: 'scatter'
+  };
+
+  var trace2 = {
+    x: femalevalues.map(i => i.Usage_Month),
+    y: femalevalues.map(i => i.User_Count),
+    name: 'Female',
+    type: 'scatter'
+  };
+
+  var data = [trace1, trace2];
+
+  var layout = {
+    title: 'Total Number of user by Month & Gender'
+
+  };
+
+  Plotly.newPlot('usagem', data, layout);
+
+}
+
+var selectButton = d3.select("#selYear");
+selectButton.on("change", runEnter);
+
+function runEnter() {
+  var yearSelected = parseInt(selectButton.property("value"));
+  console.log(yearSelected)
+  d3.json("static/js/usagem_"+yearSelected+".json").then(logicmonth);
+}
+
+runEnter()
