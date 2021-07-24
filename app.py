@@ -1,5 +1,6 @@
 import numpy as np
 import sqlalchemy
+import os
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
@@ -11,7 +12,7 @@ from flask_cors import CORS
 import ast
 
 # engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
-engine = create_engine("postgresql://qatbxyntzlknkz:ab06e8722668e01b3e8adc17e6f13153602293a7e973411a65f27e0435ff1a4e@ec2-23-20-124-77.compute-1.amazonaws.com:5432/d6nt7q88h8t02j")
+engine = create_engine(os.environ.get('DATABASE_URL', ''))
 reduction_ratio=100
 routesnum=250
 # reflect an existing database into a new model
