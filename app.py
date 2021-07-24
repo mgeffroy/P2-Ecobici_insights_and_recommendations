@@ -193,6 +193,38 @@ def routes(yeardata):
 
     return jsonify(jsondata)
 
+@app.route("/routedata/<datedata>")
+def routesdate(datedata):
+    querystring=f"""Select v.ciclo_estacion_retiro, v.ciclo_estacion_arribo, count(v.ciclo_estacion_arribo) as trips,
+                    er.LAT as retiro_lat,er.LON as retiro_lon,
+                    ea.LAT as arribo_lat, ea.LON as arribo_lon 
+                    from Viajes v                   
+                    left join Estaciones er
+                    on v.ciclo_estacion_retiro=er.E_ID
+                    left join Estaciones ea
+                    on v.ciclo_estacion_arribo=ea.E_ID
+					where usage_timestamp = '{datedata}'
+                    group by v.ciclo_estacion_retiro,v.ciclo_estacion_arribo,retiro_lat,retiro_lon,
+                    arribo_lat,arribo_lon 
+                    order by trips desc
+                    limit 250;"""
+
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Ciclo_Estacion_Retiro"]=element.ciclo_estacion_retiro
+        getdict["Ciclo_Estacion_Arribo"]=element.ciclo_estacion_arribo
+        getdict["Trips"]=element.trips
+        getdict["Retiro_Lat"]=element.retiro_lat
+        getdict["Retiro_Lon"]=element.retiro_lon
+        getdict["Arribo_Lat"]=element.arribo_lat
+        getdict["Arribo_Lon"]=element.arribo_lon
+        jsondata.append(getdict)
+
+    return jsonify(jsondata)
+
+
 @app.route("/demographicsrange")
 def demographicsdata():
     querystring="""select (case when edad_usuario >= 10 and edad_usuario < 20 then '10-19'
