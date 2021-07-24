@@ -99,7 +99,7 @@
       <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
         <div class="card-header">Open Data Mexico City</div>
           <div class="card-body">
-           <h4 class="card-title"> "Colonias information"</h4>
+           <h4 class="card-title"> "Colonias" information</h4>
             <p class="card-text"> List of Mexico City's neighborhoods and geographical borders. <br>
             <a class="links" href="https://datos.cdmx.gob.mx/dataset/coloniascdmx">Link</a> </p>
         </div>
@@ -108,19 +108,56 @@
     </div>
 <!--Close second row--> 
 </div>
+<br>
+<hr>
+<br>
 
 <!---Open disclaimer heading row-->
-<div>
-<h2>Data disclaimer</h2>
+<div class ="row">
+<h2> Data disclaimer</h2>
 <!--Close disclaimer heading row-->
 </div>
-
+<div class="row">
 <!--Opening of data disclaimer -->
 <p>It is important to mention that in our analysis, we did the following: 
   <ul>
     <li>The data used in most of our analysis is related to trip number by day, and is not related to the users of the Ecobici service.</li>
+    <li>The full datasets where not used. Out of 71 million trips, we had a sample of 710,000 trips.</li>
+    <li>All stations were mapped.</li>
   </ul>
 </p>
+</div>
+<br>
+<hr>
+<br>
+
+<!---Open data ETL heading row-->
+<div class ="row">
+  <h2> ETL process</h2>
+  <!--Close ETL  heading row-->
+  </div>
+  <div class="row">
+  <!--Opening of data disclaimer -->
+  <p>In the Extract, Transform and Load process we did the following: <br>
+  
+    <dl>
+      <dt>Extract</dt>
+       <dd>1. Different <strong>datasets </strong> concerning our topic were <strong>located </strong> in different webpages and <strong> downloaded</strong> .</dd>
+        <dd>2. <strong>Historical data</strong> was downloaded in <strong>CSV</strong> format from the <strong>Ecobici website</strong>, <strong> one file per month </strong>.</dd>
+        <dd>3. <strong>Data</strong> for each <strong>stations</strong> was downloaded using an <strong>the Ecobici API</strong> from their website.</dd>
+        <dt>Transform<dt>
+          <dd>1. A <strong>python</strong> script was written <strong>to unify all of the CSV files</strong> into one unified CSV file with 10 years of monthly data. This resulted in 71 million lines.</dd>
+          <dd>2. A <strong>python</strong> script <strong>cleaned the data of anomalies</strong>.</dd>
+          <dd>3. Given the size of the dataset, we <strong>created a subset of one in hundred</strong>, resulting in a <strong>sample of 710,000</strong> data points.</dd>
+        <dt>Load</dt>
+        <dd>1.<strong> Data was imported into Postgres</strong>.</dd>
+        <dd>2.<strong> Queries</strong> regarding stations, general trips, routes and demographics </dd>
+        <dd>3. Each <strong> query was parsed using flask and SQL alchemy</strong> and was <strong>fed into the webpage using D3</strong>.</dd>
+    </dl>
+  </p>
+  </div>
+  <br>
+  <hr>
         <!--Table title row-->
         <div class="row">
           <br>
