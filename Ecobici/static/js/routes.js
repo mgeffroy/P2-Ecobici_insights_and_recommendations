@@ -23,9 +23,6 @@ selectButton.on("change", runEnter);
 // ====================================================================
 function runEnter() {
 
-  // myMap.off();
-  // myMap.remove();
-  // myMap.invalidateSize()
   d3.select("#routes_map").html(" ");
   var container = L.DomUtil.get('routes_map');
   if(container != null){
@@ -36,7 +33,7 @@ function runEnter() {
   var yearSelected = parseInt(selectButton.property("value"));
 
   // console.log(yearSelected);
-  d3.json("static/temp_data/sorted_unique_routes_"+yearSelected+".json").then(routes => {
+  d3.json("http://127.0.0.1:5000/routedata/"+yearSelected).then(routes => {
     // Define base layers
     var streetView = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
       attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
@@ -62,13 +59,20 @@ function runEnter() {
 
     // MARKERS LAYER
     // ============================================================
+    
 
     var markers_to_plot = new L.LayerGroup();
-    d3.json("static/temp_data/stationdata.json").then(markers => {
+    
+    d3.json("http://127.0.0.1:5000/stationdata").then(function (response) {
 
-    markers.stations.forEach(marker=> {
-      L.marker(marker.location)
-        .bindPopup("<h5>" + marker.name + "</h5><hr>" + "Colonia: "+ marker.districtName + "<br>Station ID: " + marker.id)
+      for (var i = 0; i < response.length; i++) {
+
+      var location = L.latLng(response[i]['LAT'], response[i]['Lon']);
+      // console.log(location)
+
+      if (location) {
+      L.marker(location)
+        .bindPopup("<h5>" + response[i]['Name'] + "</h5><hr>" + "Colonia: "+ response[i]['districtName'] + "<br>Station ID: " + response[i]['ID'])
         .on('mouseover', function (e) {
           this.openPopup()
         })
@@ -76,14 +80,18 @@ function runEnter() {
           this.closePopup()
         })
         .addTo(markers_to_plot);
-        });
+
+        };
+      };
+      // console.log(markers_to_plot)
     });
+
 
     // COLONIAS LAYER
     // ============================================================
     var colonias_layer = new L.LayerGroup();
-    d3.json("static/temp_data/colonias.json").then(colonias => {
-      console.log(colonias);
+    d3.json("http://127.0.0.1:5000/coloniadata").then(colonias => {
+      // console.log(colonias);
       for (var i = 0; i < Object.keys(colonias).length; i++) {
         var colonia_data = colonias[i]['geo_shape'];
 
@@ -105,7 +113,7 @@ function runEnter() {
   var heatArray = [];
   for (var i = 0; i < num_of_routes_to_plot; i++) {
 
-    heatArray.push([routes[i]['Start_Station_Lat'], routes[i]['Start_Station_Lon']]);
+    heatArray.push([routes[i]['Retiro_Lat'], routes[i]['Retiro_Lon'] ]);
 
   }
   L.heatLayer(heatArray, {
@@ -128,11 +136,11 @@ function runEnter() {
     var routes_to_plot = new L.LayerGroup();
     for (var i = 0; i < num_of_routes_to_plot; i++) {
       var line = [
-        [routes[i]['Start_Station_Lat'], routes[i]['Start_Station_Lon']],
-        [routes[i]['End_Station_Lat'], routes[i]['End_Station_Lon']]
+        [routes[i]['Retiro_Lat'], routes[i]['Retiro_Lon']],
+        [routes[i]['Arribo_Lat'], routes[i]['Arribo_Lon']]
       ];
 
-      strokeSettings = getStrokeWeight(routes[i]['Total_Rides'])
+      strokeSettings = getStrokeWeight(routes[i]['Trips']);
 
       L.polyline(line, {
         color: strokeSettings[2],
@@ -157,7 +165,9 @@ function runEnter() {
         19.4017, -99.1695
       ],
       zoom: 13,
-     layers: [streetView, routes_to_plot, heat_to_plot]
+     layers: [streetView, routes_to_plot, 
+      heat_to_plot
+    ]
     });
 
     L.control.layers(baseMaps, overlayMaps, {
