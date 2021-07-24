@@ -62,7 +62,7 @@ d3.json("http://127.0.0.1:5000/coloniadata").then(colonias => {
       color: "#C73824",
       fillColor: "transparent",
       fillOpacity: 0,
-      weight: .5
+      weight: 1
     }).addTo(colonias_layer);
   };
 });
