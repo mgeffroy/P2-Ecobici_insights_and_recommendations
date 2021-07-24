@@ -193,8 +193,38 @@ def routes(yeardata):
 
     return jsonify(jsondata)
 
+@app.route("/demographicsrange")
+def demographicsdata():
+    querystring="""select (case when edad_usuario >= 10 and edad_usuario < 20 then '10-19'
+             when edad_usuario >= 20 and edad_usuario < 30 then '20-29'
+             when edad_usuario >= 30 and edad_usuario < 40 then '30-39'
+             when edad_usuario >= 40 and edad_usuario < 50 then '40-49'
+             when edad_usuario >= 50 and edad_usuario < 60 then '50-59'
+             when edad_usuario >= 60 and edad_usuario < 70 then '60-69'
+             when edad_usuario >= 70 and edad_usuario < 80 then '70-79'
+	         when edad_usuario >= 80 and edad_usuario < 90 then '80-89'
+             else 'other' end) as range, count(*) as user_counts, genero_usuario
+            from viajes
+            group by genero_usuario, (case when edad_usuario >= 10 and edad_usuario < 20 then '10-19'
+             when edad_usuario >= 20 and edad_usuario < 30 then '20-29'
+             when edad_usuario >= 30 and edad_usuario < 40 then '30-39'
+             when edad_usuario >= 40 and edad_usuario < 50 then '40-49'
+             when edad_usuario >= 50 and edad_usuario < 60 then '50-59'
+             when edad_usuario >= 60 and edad_usuario < 70 then '60-69'
+             when edad_usuario >= 70 and edad_usuario < 80 then '70-79'
+	         when edad_usuario >= 80 and edad_usuario < 90 then '80-89'
+             else 'other' end);"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        if element.range!="other":
+            getdict["Rango_Edad"]=element.range
+            getdict["Cantidad_Usuarios"]=element.user_counts
+            getdict["Genero_Usuario"]=element.genero_usuario
+        jsondata.append(getdict)
 
-
+    return jsonify(jsondata)    
 
 
 if __name__ == "__main__":
