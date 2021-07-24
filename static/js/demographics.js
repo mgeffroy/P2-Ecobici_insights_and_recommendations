@@ -46,8 +46,8 @@ function logic(response) {
     Plotly.newPlot('gender', data, layout);
 }
 
-d3.json("http://127.0.0.1:5000/demographicsrange").then(logic);
-d3.json("http://127.0.0.1:5000/demographicsage").then(logic2);
+d3.json("/demographicsrange").then(logic);
+d3.json("/demographicsage").then(logic2);
 
 function logic2(response) {
 

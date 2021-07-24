@@ -15,7 +15,7 @@ var streetView = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x
 }).addTo(myMap);
 
 // Store API query variables
-var markers_url = "http://127.0.0.1:5000/stationdata";
+var markers_url = "/stationdata";
 
 // Grab the data with d3
 d3.json(markers_url).then(function (response) {

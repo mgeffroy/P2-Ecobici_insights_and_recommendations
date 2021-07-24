@@ -111,7 +111,7 @@ function runEnter() {
   var heat_to_plot = new L.LayerGroup();
 
   // Call API with D3
-  d3.json("http://127.0.0.1:5000/routedata/" + yearSelected).then(routes => {
+  d3.json("/routedata/" + yearSelected).then(routes => {
 
     // Establish variable for number of routes to plot
     num_of_routes_to_plot = 250

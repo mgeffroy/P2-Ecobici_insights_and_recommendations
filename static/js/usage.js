@@ -34,7 +34,7 @@ function logic(response) {
 
 }
 
-d3.json("http://127.0.0.1:5000/yearlygenderdata/").then(logic);
+d3.json("/yearlygenderdata/").then(logic);
 
 function logicmonth(response) {
   // console.log(response)
