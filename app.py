@@ -109,7 +109,7 @@ def yearlygender():
         getdict={}
         getdict["Genero_Usuario"]= element.genero_usuario
         getdict["Usage_Year"]= element.usage_year
-        getdict["User_Count"]= element.users
+        getdict["User_Count"]= element.users*100#multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)
 
@@ -125,7 +125,7 @@ def fullmonthlygender():
         getdict={}
         getdict["Genero_Usuario"]= element.genero_usuario
         getdict["Usage_Month"]= element.usage_month
-        getdict["User_Count"]= element.users
+        getdict["User_Count"]= element.users*100 #multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)
 
@@ -142,7 +142,7 @@ def yearmonthlygender(yeardata):
         getdict={}
         getdict["Genero_Usuario"]= element.genero_usuario
         getdict["Usage_Month"]= element.usage_month
-        getdict["User_Count"]= element.users
+        getdict["User_Count"]= element.users*100#multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)    
 
@@ -220,7 +220,7 @@ def demographicsdata():
         getdict={}
         if element.range!="other":
             getdict["Rango_Edad"]=element.range
-            getdict["Cantidad_Usuarios"]=element.user_counts
+            getdict["Cantidad_Usuarios"]=element.user_counts*100#multiplied by 100 to reflect true userbase size
             getdict["Genero_Usuario"]=element.genero_usuario
         jsondata.append(getdict)
 
