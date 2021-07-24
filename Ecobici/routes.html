@@ -84,7 +84,7 @@
     </div>
 
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <div class="card bg-secondary text-center">
           <h5>Choose a year:</h5>
           <select class="form-control" id="selYear">
@@ -101,15 +101,56 @@
             <option value="2020">2020</option>
           </select>
         </div>
+
+        <div class="card bg-secondary mt-2">
+          <h5>Ecobici development trends:</h5>
+          <p> You can trace Ecobici's development by changing the year
+            that the map presents. Zoom in, add the Stations Marker layer, 
+            and you can see which stations were major hubs of trips. 
+          </p>
+
+          <p> Based on your observations, what would you recommend that 
+            Ecobici leaders do next in order to grow and strengthen the network? 
+            You can see our recommendations below. 
+          </p>
+
+        </div>
+
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
         <div class="mapbox" id="routes_map"></div>
       </div>
     </div>
 
     <!-- Add some space before footer -->
     <div class="row">
-      <p><br></p>
+        <div class="col-md-12">
+          <hr>
+            <h2>Our Conclusions & Recommendations</h2>
+            <p>Based on an analysis of the usage plots above, 
+              we have offer 3 recommendations:
+              <ol>
+                <li> Actvity in Colonia Del Valle appears slower than 
+                  activity in Colonias Roma, Condesa, Juarez and Polanco. 
+                  Despite the large concentration of stations in Col. Del Valle, 
+                  they appear underutilized. We would recommend promoting the service
+                  more actively in that area. 
+                </li>
+                <li> The heatmap demonstrates some Colonias that could be good candidates
+                  for expanding the network of Stations. Colonias Santa Maria la Ribera, 
+                  Guerrero, and the western edge of Doctores all border heavy activity. 
+                </li>
+                <li> On the otherhand, the heatmap demonstrates that other Colonias 
+                  will not be good candidates for expansion until Colonia Del Valle 
+                  sees heavier traffic. Colonias like San Pedro de los Pinos, Narvarte, 
+                  Alamos, Postales and Portales are examples. 
+                </li>
+                <li> A close look at station markers with heavy traffic indicate that metro 
+                  stations and grocery stores are major drivers of ecobici traffic. 
+                </li>
+              </ol>
+            </p>
+        </div>
     </div>
   </div>
 
@@ -130,7 +171,7 @@
 
   <footer class="row">
     <div class="col justify-content-center">
-      <p>Ecobici | Gobierno de la Ciudad de México (2021). Retrived from https://www.ecobici.cdmx.gob.mx/</p>
+      <p>Ecobici | Gobierno de la Ciudad de México (2021). Retrieved from https://www.ecobici.cdmx.gob.mx/</p>
     </div>
   </footer>
 
