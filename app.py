@@ -81,6 +81,25 @@ def viajesdata(yeardata):
 
     return jsonify(jsondata)
 
+@app.route("/viajesdatafull")
+def viajesdatafull(yeardata):
+    yeardata=int(yeardata)
+    yeardata2=yeardata+1
+    querystring='select * from viajes'
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Genero_Usuario"]= element.genero_usuario
+        getdict["Edad_Usuario"]= element.edad_usuario
+        getdict["Ciclo_Estacion_Retiro"]= element.ciclo_estacion_retiro
+        getdict["Ciclo_Estacion_Arribo"]= element.ciclo_estacion_arribo
+        getdict["Usage_Timestamp"]= element.usage_timestamp
+        getdict["Duration"]= element.duration
+        jsondata.append(getdict)
+
+    return jsonify(jsondata)
+
 @app.route("/yearlygenderdata/")
 def yearlygender():
     querystring="""select extract(year from usage_timestamp) as usage_year, genero_usuario, count(genero_usuario) as users  from viajes
