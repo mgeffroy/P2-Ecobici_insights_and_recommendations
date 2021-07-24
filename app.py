@@ -226,7 +226,18 @@ def demographicsdata():
 
     return jsonify(jsondata)    
 
-
+@app.route("/demographicsage")
+def demographicsagedata():
+    querystring="""select edad_usuario ,count(*)*100 as user_counts from viajes
+            group by edad_usuario"""
+    data=engine.execute(querystring)
+    jsondata=[]
+    for element in data:
+        getdict={}
+        getdict["Cantidad_Usuarios"]=element.user_counts*100#multiplied by 100 to reflect true userbase size
+        getdict["Edad_Usuario"]=element.edad_usuario
+        jsondata.append(getdict)
+    return jsonify(jsondata)
 if __name__ == "__main__":
     app.run(debug=True)
 #testing to update again
