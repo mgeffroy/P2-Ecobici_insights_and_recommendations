@@ -25,13 +25,10 @@ d3.json(markers_url).then(function (response) {
 
   // Loop through data
   for (var i = 0; i < response.length; i++) {
-    console.log(response.length)
+    // console.log(response.length)
     // Set the data location property to a variable
     var location = L.latLng(response[i]['LAT'], response[i]['Lon']);
-    console.log(response[i]['LAT'], response[i]['Lon'])    
     console.log(location)
-    // var latlng = L.latLng(50.5, 30.5);
-
     // Check for location property
     if (location) {
 
@@ -56,7 +53,7 @@ d3.json(markers_url).then(function (response) {
 // COLONIAS LAYER
 // ============================================================
 var colonias_layer = new L.LayerGroup();
-d3.json("static/temp_data/colonias.json").then(colonias => {
+d3.json("http://127.0.0.1:5000/coloniadata").then(colonias => {
   // console.log(colonias);
   for (var i = 0; i < Object.keys(colonias).length; i++) {
     var colonia_data = colonias[i]['geo_shape'];
