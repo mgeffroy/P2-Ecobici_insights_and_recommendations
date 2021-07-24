@@ -23,7 +23,7 @@ function logic(response) {
   var data = [trace1, trace2];
 
   var layout = {
-    title: 'Total Number of user by Year & Gender'
+    title: 'Total Number of Trips by Year & Gender'
 
   };
 
@@ -31,7 +31,7 @@ function logic(response) {
 
 }
 
-d3.json("static/js/usagey.json").then(logic);
+d3.json("http://127.0.0.1:5000/yearlygenderdata/").then(logic);
 
 function logicmonth(response) {
   // console.log(response)
@@ -57,7 +57,7 @@ function logicmonth(response) {
   var data = [trace1, trace2];
 
   var layout = {
-    title: 'Total Number of user by Month & Gender'
+    title: 'Total Number of Trips by Month & Gender'
 
   };
 
@@ -71,7 +71,7 @@ selectButton.on("change", runEnter);
 function runEnter() {
   var yearSelected = parseInt(selectButton.property("value"));
   console.log(yearSelected)
-  d3.json("static/js/usagem_"+yearSelected+".json").then(logicmonth);
+  d3.json("http://127.0.0.1:5000/genderyearmonthdata/"+yearSelected).then(logicmonth);
 }
 
 runEnter()

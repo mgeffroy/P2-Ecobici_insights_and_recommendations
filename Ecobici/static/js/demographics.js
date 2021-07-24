@@ -1,20 +1,25 @@
 
 function logic(response) {
-    var filtervalues = response.map(i => [i.Genero_Usuario, i.Edad_Usuario]);
-    var malevalues = filtervalues.filter(i => i[0] === "M");
-    var femalevalues = filtervalues.filter(i => i[0] === "F");
-    var malevaluesrange = malevalues.map(i => (i[1] / 10) | 0);
-    var femalevaluesrange = femalevalues.map(i => (i[1] / 10) | 0);
-    var malerangecount = count(malevaluesrange);
-    var femalerangecount = count(femalevaluesrange);
+
+    console.log(response)
+
+    // var filtervalues = response.map(i => [i.Genero_Usuario, i.Edad_Usuario]);
+    var malevalues = response.filter(i => i.Genero_Usuario === "M");
+    var femalevalues = response.filter(i => i.Genero_Usuario === "F");
+    // var malevaluesrange = malevalues.map(i => (i[1] / 10) | 0);
+    // var femalevaluesrange = femalevalues.map(i => (i[1] / 10) | 0);
+    // var malerangecount = count(malevaluesrange);
+    // var femalerangecount = count(femalevaluesrange);
     // scatter plot
-    var fullrange = filtervalues.map(i => i[1]);
-    var fullcount = countfull(fullrange);
+
+    // var fullrange = filtervalues.map(i => i[1]);
+    // var fullcount = countfull(fullrange);
     
+    console.log(malevalues.map(i => i.Cantidad_Usuarios))
 
     var trace1 = {
-        x: Object.values(malerangecount),
-        y: Object.keys(malerangecount),
+        x: malevalues.map(i => i.Cantidad_Usuarios),
+        y: malevalues.map(i => i.Rango_Edad),
         name: 'Total Male',
         orientation: 'h',
         marker: {
@@ -25,8 +30,8 @@ function logic(response) {
     };
     
     var trace2 = {
-        x: Object.values(femalerangecount),
-        y: Object.keys(femalerangecount),
+        x: femalevalues.map(i => i.Cantidad_Usuarios),
+        y: femalevalues.map(i => i.Rango_Edad),
         name: 'Total Female',
         orientation: 'h',
         type: 'bar',
@@ -39,29 +44,29 @@ function logic(response) {
     var data = [trace1, trace2];
     
     var layout = {
-        title: 'Total Number of user by Age Range & Gender ',
+        title: 'Total Number of Trips by Age Range & Gender ',
         barmode: 'stack'
     };
     
     Plotly.newPlot('gender', data, layout);
 
-    var trace1 = {
-        x: Object.keys(fullcount),
-        y: Object.values(fullcount),
-        mode: 'markers'
+    // var trace1 = {
+    //     x: Object.keys(fullcount),
+    //     y: Object.values(fullcount),
+    //     mode: 'markers'
         
-      };
+    //   };
       
-      var data = [trace1];
+    //   var data = [trace1];
       
-      var layout = {
-        title: 'Marker Size and Color',
-        showlegend: false,
-        height: 600,
-        width: 600
-      };
+    //   var layout = {
+    //     title: 'Marker Size and Color',
+    //     showlegend: false,
+    //     height: 600,
+    //     width: 600
+    //   };
       
-      Plotly.newPlot('scatter', data, layout);
+    //   Plotly.newPlot('scatter', data, layout);
 }
 
 function count(values) {
@@ -107,7 +112,7 @@ function countfull(values) {
     }
     return count;
 }
-d3.json("static/js/demographics.json").then(logic);
+d3.json("http://127.0.0.1:5000//demographicsrange").then(logic);
 
 
 
