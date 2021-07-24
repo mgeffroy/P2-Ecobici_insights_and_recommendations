@@ -82,9 +82,7 @@ def viajesdata(yeardata):
     return jsonify(jsondata)
 
 @app.route("/viajesdatafull")
-def viajesdatafull(yeardata):
-    yeardata=int(yeardata)
-    yeardata2=yeardata+1
+def viajesdatafull():
     querystring='select * from viajes'
     data=engine.execute(querystring)
     jsondata=[]
