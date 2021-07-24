@@ -4,7 +4,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from flask import Flask,jsonify,render_template
-from config import password
+#from config import password
 import datetime
 import pandas as pd
 from flask_cors import CORS
