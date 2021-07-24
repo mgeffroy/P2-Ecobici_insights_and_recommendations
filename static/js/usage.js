@@ -23,8 +23,11 @@ function logic(response) {
   var data = [trace1, trace2];
 
   var layout = {
-    title: 'Total Number of Trips by Year & Gender'
-
+    title: 'Total Number of Trips by Year & Gender',
+    xaxis:{title: "Year"},
+    yaxis:{title: "Total Trips"},
+    height: 600,
+    width: 1300
   };
 
   Plotly.newPlot('usagey', data, layout);
@@ -57,8 +60,11 @@ function logicmonth(response) {
   var data = [trace1, trace2];
 
   var layout = {
-    title: 'Total Number of Trips by Month & Gender'
-
+    title: 'Total Number of Trips by Month & Gender',
+    xaxis:{title: "Month"},
+    yaxis:{title: "Total Trips"},
+    height: 600,
+    width: 1300
   };
 
   Plotly.newPlot('usagem', data, layout);

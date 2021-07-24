@@ -36,6 +36,10 @@ function logic(response) {
     
     var layout = {
         title: 'Total Number of Trips by Age Range & Gender ',
+        xaxis:{title: "Total Trips"},
+        yaxis:{title: "Age Range"},
+        height: 600,
+        width: 1300,
         barmode: 'stack'
     };
     
@@ -62,7 +66,9 @@ function logic2(response) {
         title: 'Total Number of Trips by Age',
         showlegend: false,
         height: 600,
-        width: 1200
+        width: 1200,
+        xaxis:{title: "Total Trips"},
+        yaxis:{title: "Age"}
       };
       
       Plotly.newPlot('scatter', data, layout);
