@@ -66,7 +66,7 @@
     <!--Create our first row -->
     <div class="row gx-5">
 
-      <p>This project used a random sample of the total rides data that represents 1% of the full dataset. Therefore, number presented below are approximate projections of the sample subset.</p>
+      <p>Note: This project used a random sample of the total rides data that represents 1% of the full dataset. Therefore, number presented below are approximate projections of the sample subset.</p>
       <!--Create our columns inside our rows-->
       <div id="gender"></div>
       
@@ -80,10 +80,73 @@
  
     </div>
 
+    <div class="container">
+      <div class="row">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Conclusions (Total Number of trips by age and gender)
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <strong>What we observed in this graph was the following:</strong>
+            <ul>
+              <li>In all age groups there are more trips where men were riders than where women were riders.</li>
+              <li>Most Ecobici users belong to the 20-29 and to the 30-39 age groups, where both of these groups pass the 25M mark.</li>
+              <li>Comparing these two groups, more trips where made by women in the 20-29 years group than in the 30-39 years group.</li>
+              <li>The groups that made the least trips are both the, outliers, the one with 70 to 79 year-olds, and the one with the youngest population: the 10 to 19 year olds.</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+           Conclusions for total number of trips by age
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <strong>What we could see in this graph was the following:</strong>
+            <ul>
+              <li> We can see that this graph has a normal distribution. </li>
+              <li>As with the previous graph, most trips are concentrated in the age groups renging from 20 to 40.</li>
+              <li>Most trips were made by people aged 30-31.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingThree">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Recommendations
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample" style="">
+          <div class="accordion-body">
+            <strong> The main problem we noticed is the lack of use of the Ecobici service by women in most age groups and also most riders are concentrated in two age groups. Because of this we recommend:</strong>
+            <ul>
+              <li>Promote Ecobici as a transport option for all ages and sexes.</li>
+              <li>Research the reasons why people are using Ecobici as a way of transport (school, work, errands)</li>
+              <li>Allow teenagers to get a bike with an adult (parents with membership or special "family" membership)</li>
+              <li>Target women in next Ecobici campaigns.</li>
+              <li>Discounts for people aged 60+.</li>
+              <li>Improve bike and cycling road infrastructure to make it safer for everyone.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+      </div>
+
+
     <!--- Close container-->
   </div>
-  </div>
-  </div>
+  
+  <p><br><br></p>
 
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="/static/js/demographics.js"></script>

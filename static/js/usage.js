@@ -27,7 +27,7 @@ function logic(response) {
     xaxis:{title: "Year"},
     yaxis:{title: "Total Trips"},
     height: 600,
-    width: 1300
+    width: 1200
   };
 
   Plotly.newPlot('usagey', data, layout);
@@ -64,7 +64,7 @@ function logicmonth(response) {
     xaxis:{title: "Month"},
     yaxis:{title: "Total Trips"},
     height: 600,
-    width: 1300
+    width: 1200
   };
 
   Plotly.newPlot('usagem', data, layout);

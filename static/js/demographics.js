@@ -39,7 +39,7 @@ function logic(response) {
         xaxis:{title: "Total Trips"},
         yaxis:{title: "Age Range"},
         height: 600,
-        width: 1300,
+        width: 1200,
         barmode: 'stack'
     };
     

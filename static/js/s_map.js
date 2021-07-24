@@ -28,7 +28,7 @@ d3.json(markers_url).then(function (response) {
     // console.log(response.length)
     // Set the data location property to a variable
     var location = L.latLng(response[i]['LAT'], response[i]['Lon']);
-    console.log(location)
+    // console.log(location)
     // Check for location property
     if (location) {
 
