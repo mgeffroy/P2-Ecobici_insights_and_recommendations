@@ -11,7 +11,7 @@ from flask_cors import CORS
 import ast
 
 engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
-
+reduction_ratio=100
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
@@ -113,7 +113,7 @@ def yearlygender():
         getdict={}
         getdict["Genero_Usuario"]= element.genero_usuario
         getdict["Usage_Year"]= element.usage_year
-        getdict["User_Count"]= element.users*100#multiplied by 100 to reflect true userbase size
+        getdict["User_Count"]= element.users*reduction_ratio#multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)
 
@@ -129,7 +129,7 @@ def fullmonthlygender():
         getdict={}
         getdict["Genero_Usuario"]= element.genero_usuario
         getdict["Usage_Month"]= element.usage_month
-        getdict["User_Count"]= element.users*100 #multiplied by 100 to reflect true userbase size
+        getdict["User_Count"]= element.users*reduction_ratio #multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)
 
@@ -146,7 +146,7 @@ def yearmonthlygender(yeardata):
         getdict={}
         getdict["Genero_Usuario"]= element.genero_usuario
         getdict["Usage_Month"]= element.usage_month
-        getdict["User_Count"]= element.users*100#multiplied by 100 to reflect true userbase size
+        getdict["User_Count"]= element.users*reduction_ratio#multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)    
 
@@ -256,7 +256,7 @@ def demographicsdata():
         getdict={}
         if element.range!="other":
             getdict["Rango_Edad"]=element.range
-            getdict["Cantidad_Usuarios"]=element.user_counts*100#multiplied by 100 to reflect true userbase size
+            getdict["Cantidad_Usuarios"]=element.user_counts*reduction_ratio#multiplied by 100 to reflect true userbase size
             getdict["Genero_Usuario"]=element.genero_usuario
         jsondata.append(getdict)
 
@@ -264,13 +264,13 @@ def demographicsdata():
 
 @app.route("/demographicsage")
 def demographicsagedata():
-    querystring="""select edad_usuario ,count(*)*100 as user_counts from viajes
+    querystring=f"""select edad_usuario ,count(*)*{reduction_ratio} as user_counts from viajes
             group by edad_usuario"""
     data=engine.execute(querystring)
     jsondata=[]
     for element in data:
         getdict={}
-        getdict["Cantidad_Usuarios"]=element.user_counts*100#multiplied by 100 to reflect true userbase size
+        getdict["Cantidad_Usuarios"]=element.user_counts*reduction_ratio#multiplied by 100 to reflect true userbase size
         getdict["Edad_Usuario"]=element.edad_usuario
         jsondata.append(getdict)
     return jsonify(jsondata)
