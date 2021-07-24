@@ -12,6 +12,7 @@ import ast
 
 engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
 reduction_ratio=100
+routesnum=250
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
@@ -180,7 +181,7 @@ def routes(yeardata):
                     group by v.ciclo_estacion_retiro,v.ciclo_estacion_arribo,retiro_lat,retiro_lon,
                     arribo_lat,arribo_lon 
                     order by trips desc
-                    limit 250;"""
+                    limit {routesnum};"""
 
     data=engine.execute(querystring)
     jsondata=[]
