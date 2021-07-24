@@ -34,13 +34,17 @@ def demographics():
 def routespage():
     return render_template("routes.html")
 
-@app.route("/smap")
+@app.route("/s_map")
 def smappage():
-    return render_template("smap.html")
+    return render_template("s_map.html")
 
 @app.route("/usage")
 def usagepage():
     return render_template("usage.html")
+
+@app.route("/about")
+def aboutpage():
+    return render_template("about.html")
 
 @app.route("/stationdata")
 def stationdata():
