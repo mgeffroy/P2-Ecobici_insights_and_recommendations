@@ -77,7 +77,7 @@ selectButton.on("change", runEnter);
 function runEnter() {
   var yearSelected = parseInt(selectButton.property("value"));
   console.log(yearSelected)
-  d3.json("http://127.0.0.1:5000/genderyearmonthdata/"+yearSelected).then(logicmonth);
+  d3.json("/genderyearmonthdata/"+yearSelected).then(logicmonth);
 }
 
 runEnter()
