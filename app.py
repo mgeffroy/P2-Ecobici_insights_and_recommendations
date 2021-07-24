@@ -10,9 +10,12 @@ import datetime
 import pandas as pd
 from flask_cors import CORS
 import ast
-
 # engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
-engine = create_engine(os.environ.get('DATABASE_URL', ''))
+
+url_base = os.environ.get('DATABASE_URL', '')
+new_base = url_base[:8]+'ql'+ url_base[8:]
+print(new_base)
+engine = create_engine(new_base)
 reduction_ratio=100
 routesnum=250
 # reflect an existing database into a new model
