@@ -1,11 +1,11 @@
 # :bike::bike: ECOBICI: Insights and Recommendations :bike::bike:
 
 ## Team Members
-* Kenneth Andersen 🚴‍♂️ 
-* Uriel Arriaga   🚴‍♂️
-* Salvador del Cos  🚴‍♂️
-* Mariana Geffroy López 🚴‍♀️
-* Gustavo Maldonado  🚴‍♂️
+* [Kenneth Andersen](https://github.com/kennethcandersen) 🚴‍♂️ 
+* [Uriel Arriaga](https://github.com/Momoyactly) 🚴‍♂️
+* [Salvador del Cos](https://github.com/Fispit) 🚴‍♂️
+* [Mariana Geffroy López](https://github.com/mgeffroy) 🚴‍♀️
+* [Gustavo Maldonado](https://github.com/MBGUS) 🚴‍♂️
 
 ## Project summary 
 ### What is Ecobici? 
