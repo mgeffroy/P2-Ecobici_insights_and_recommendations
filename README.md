@@ -17,10 +17,13 @@ Become a rider! Don't have your ecobici membership yet? [Sign up here](https://w
 Apply data analysis tools to observe the evolution of the ECOBICI network and provide recommendations for its future development and growth.
 
 ## How to run the app
-1. Clone the repository
-2. In the main repository folder, run "python3 appy.py" in your terminal
-3. Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in a browser and the website should launch. 
-4. Browse the website for data visualizations and additional information about the data and team. 
+2 options:
+1. **[Fully deployed online version](https://dataviz-ecobici.herokuapp.com/)**: [https://dataviz-ecobici.herokuapp.com/](https://dataviz-ecobici.herokuapp.com/)
+2. Run locally:
+     1. Clone this repository
+     2. In the main repository folder, run "python3 appy.py" in your terminal
+     3. Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in a browser and the website should launch. 
+     4. Browse the website for data visualizations and additional information about the data and team. 
 
 ## Original data Sources 📁 
 The original data can be found in the following links: 
