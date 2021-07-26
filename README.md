@@ -19,7 +19,7 @@ Apply data analysis tools to observe the evolution of the ECOBICI network and pr
 ## How to run the app
 1. Clone the repository
 2. In the main repository folder, run "python3 appy.py" in your terminal
-3. Open http://127.0.0.1:5000/ in one of your navigators and the website should launch. 
+3. Open [http://127.0.0.1:5000/](http://127.0.0.1:5000/) in a browser and the website should launch. 
 4. Browse the website for data visualizations and additional information about the data and team. 
 
 ## Original data Sources 📁 
