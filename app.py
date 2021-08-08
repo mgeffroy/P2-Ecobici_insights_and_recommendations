@@ -169,7 +169,6 @@ def colonias():
 
 @app.route("/routesByYear/<yeardata>")
 def routesByYear(yeardata):
-    querystring="select * from routesbyyear"
     querystring=f"""select * from routesbyyear
                 where level_0 = '{yeardata}'"""
     data=engine.execute(querystring)
@@ -189,12 +188,14 @@ def routesByYear(yeardata):
 
 @app.route("/demoRange")
 def demoRange():
-    data=engine.execute('select * from demorange')
+    querystring="""select * from demorange
+                order by demorange.range"""
+    data=engine.execute(querystring)
     jsondata=[]
     for element in data:
         getdict={}
-        if element.Range!="other":
-            getdict["Range"]=element.Range
+        if element.range!="other":
+            getdict["Range"]=element.range
             getdict["Count"]=element.Count#*reduction_ratio#multiplied by 100 to reflect true userbase size
             getdict["Gender"]=element.Gender
         jsondata.append(getdict)
@@ -204,12 +205,14 @@ def demoRange():
 @app.route("/demoAge")
 def demoAge():
     querystring='select * from demoage'
+    querystring="""select * from demoage
+                order by demoage.age"""
     data=engine.execute(querystring)
     jsondata=[]
     for element in data:
         getdict={}
         getdict["Count"]=element.Count#*reduction_ratio#multiplied by 100 to reflect true userbase size
-        getdict["Age"]=element.Age
+        getdict["Age"]=element.age
         jsondata.append(getdict)
     return jsonify(jsondata)
 
