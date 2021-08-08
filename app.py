@@ -10,7 +10,7 @@ import datetime
 import pandas as pd
 from flask_cors import CORS
 import ast
-# engine = create_engine('postgresql://postgres:postgres@172.18.160.1:5432/heroku')
+# engine = create_engine('')
 
 url_base = os.environ.get('DATABASE_URL', '')
 new_base = url_base[:8]+'ql'+ url_base[8:]
