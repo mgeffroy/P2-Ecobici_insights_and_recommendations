@@ -1,16 +1,16 @@
 
-function logic(response) {
+function demoRangelogic(response) {
 
     // console.log(response)
 
-    var malevalues = response.filter(i => i.Genero_Usuario === "M");
-    var femalevalues = response.filter(i => i.Genero_Usuario === "F");
+    var malevalues = response.filter(i => i.Gender === "M");
+    var femalevalues = response.filter(i => i.Gender === "F");
     
     // console.log(malevalues.map(i => i.Cantidad_Usuarios))
 
     var trace1 = {
-        x: malevalues.map(i => i.Cantidad_Usuarios),
-        y: malevalues.map(i => i.Rango_Edad),
+        x: malevalues.map(i => i.Count),
+        y: malevalues.map(i => i.Range),
         name: 'Total Male',
         orientation: 'h',
         marker: {
@@ -21,8 +21,8 @@ function logic(response) {
     };
     
     var trace2 = {
-        x: femalevalues.map(i => i.Cantidad_Usuarios),
-        y: femalevalues.map(i => i.Rango_Edad),
+        x: femalevalues.map(i => i.Count),
+        y: femalevalues.map(i => i.Range),
         name: 'Total Female',
         orientation: 'h',
         type: 'bar',
@@ -46,18 +46,14 @@ function logic(response) {
     Plotly.newPlot('gender', data, layout);
 }
 
-d3.json("/demographicsrange").then(logic);
-d3.json("/demographicsage").then(logic2);
-
-function logic2(response) {
+function demoAgelogic(response) {
 
     // console.log(response)
 
     var trace1 = {
-        y: response.map(i => i.Cantidad_Usuarios),
-        x: response.map(i => i.Edad_Usuario),
+        y: response.map(i => i.Count),
+        x: response.map(i => i.Age),
         mode: 'line'
-        
       };
       
       var data = [trace1];
@@ -74,6 +70,5 @@ function logic2(response) {
       Plotly.newPlot('scatter', data, layout);
 }
 
-
-
-
+d3.json("/demoRange").then(demoRangelogic);
+d3.json("/demoAge").then(demoAgelogic);

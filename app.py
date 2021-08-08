@@ -10,11 +10,10 @@ import datetime
 import pandas as pd
 from flask_cors import CORS
 import ast
-# engine = create_engine(f'postgresql://postgres:{password}@localhost:5432/ecobici')
+# engine = create_engine('postgresql://postgres:postgres@172.18.160.1:5432/heroku')
 
 url_base = os.environ.get('DATABASE_URL', '')
 new_base = url_base[:8]+'ql'+ url_base[8:]
-print(new_base)
 engine = create_engine(new_base)
 reduction_ratio=100
 routesnum=250
@@ -108,18 +107,16 @@ def viajesdatafull():
 
     return jsonify(jsondata)
 
-@app.route("/yearlygenderdata/")
-def yearlygender():
-    querystring="""select extract(year from usage_timestamp) as usage_year, genero_usuario, count(genero_usuario) as users  from viajes
-                    group by usage_year,genero_usuario
-                    order by usage_year"""
-    data=engine.execute(querystring)
+
+@app.route("/yearlyByGender/")
+def yearlyByGender():
+    data=engine.execute("select * from yearlybygender")
     jsondata=[]
     for element in data:
         getdict={}
-        getdict["Genero_Usuario"]= element.genero_usuario
-        getdict["Usage_Year"]= element.usage_year
-        getdict["User_Count"]= element.users*reduction_ratio#multiplied by 100 to reflect true userbase size
+        getdict["Gender"]= element.Gender
+        getdict["Year"]= element.Year
+        getdict["Count"]= element.Count #*reduction_ratio#multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
     return jsonify(jsondata)
 
@@ -139,22 +136,22 @@ def fullmonthlygender():
         jsondata.append(getdict)
     return jsonify(jsondata)
 
-@app.route("/genderyearmonthdata/<yeardata>")
-def yearmonthlygender(yeardata):
+
+
+@app.route("/yearMonthlyByGender/<yeardata>")
+def yearMonthlyByGender(yeardata):
     yeardata=int(yeardata)
-    querystring=f"""select extract(month from usage_timestamp) as usage_month, genero_usuario, count(genero_usuario) as users  from viajes
-                where usage_timestamp >= '{yeardata}-01-01' and usage_timestamp < '{yeardata+1}-01-01'
-                group by usage_month,genero_usuario
-                order by usage_month"""
+    querystring=f"""select * from monthlybygender
+                where level_0 = '{yeardata}'"""
     data=engine.execute(querystring)
     jsondata=[]
     for element in data:
         getdict={}
-        getdict["Genero_Usuario"]= element.genero_usuario
-        getdict["Usage_Month"]= element.usage_month
-        getdict["User_Count"]= element.users*reduction_ratio#multiplied by 100 to reflect true userbase size
+        getdict["Gender"]= element.Gender
+        getdict["Month"]= element.Month
+        getdict["Count"]= element.Count#*reduction_ratio#multiplied by 100 to reflect true userbase size
         jsondata.append(getdict)
-    return jsonify(jsondata)    
+    return jsonify(jsondata)   
 
 @app.route("/coloniadata")
 def colonias():
@@ -167,27 +164,14 @@ def colonias():
         getdict["geo_shape"]=ast.literal_eval(element.GeoShape)
         getdict["alcaldia"]=element.Alcaldia
         jsondata.append(getdict)
-
     return jsonify(jsondata)
-@app.route("/routedata/<yeardata>")
-def routes(yeardata):
-    yeardata=int(yeardata)
-    yeardata2=yeardata+1
 
-    querystring=f"""Select v.ciclo_estacion_retiro, v.ciclo_estacion_arribo, count(v.ciclo_estacion_arribo) as trips,
-                    er.LAT as retiro_lat,er.LON as retiro_lon,
-                    ea.LAT as arribo_lat, ea.LON as arribo_lon 
-                    from Viajes v                   
-                    left join Estaciones er
-                    on v.ciclo_estacion_retiro=er.E_ID
-                    left join Estaciones ea
-                    on v.ciclo_estacion_arribo=ea.E_ID
-					where usage_timestamp >= '{yeardata}-01-01' and usage_timestamp < '{yeardata2}-01-01'
-                    group by v.ciclo_estacion_retiro,v.ciclo_estacion_arribo,retiro_lat,retiro_lon,
-                    arribo_lat,arribo_lon 
-                    order by trips desc
-                    limit {routesnum};"""
 
+@app.route("/routesByYear/<yeardata>")
+def routesByYear(yeardata):
+    querystring="select * from routesbyyear"
+    querystring=f"""select * from routesbyyear
+                where level_0 = '{yeardata}'"""
     data=engine.execute(querystring)
     jsondata=[]
     for element in data:
@@ -203,83 +187,33 @@ def routes(yeardata):
 
     return jsonify(jsondata)
 
-@app.route("/routedata/<datedata>")
-def routesdate(datedata):
-    querystring=f"""Select v.ciclo_estacion_retiro, v.ciclo_estacion_arribo, count(v.ciclo_estacion_arribo) as trips,
-                    er.LAT as retiro_lat,er.LON as retiro_lon,
-                    ea.LAT as arribo_lat, ea.LON as arribo_lon 
-                    from Viajes v                   
-                    left join Estaciones er
-                    on v.ciclo_estacion_retiro=er.E_ID
-                    left join Estaciones ea
-                    on v.ciclo_estacion_arribo=ea.E_ID
-					where usage_timestamp = '{datedata}'
-                    group by v.ciclo_estacion_retiro,v.ciclo_estacion_arribo,retiro_lat,retiro_lon,
-                    arribo_lat,arribo_lon 
-                    order by trips desc
-                    limit 250;"""
-
-    data=engine.execute(querystring)
+@app.route("/demoRange")
+def demoRange():
+    data=engine.execute('select * from demorange')
     jsondata=[]
     for element in data:
         getdict={}
-        getdict["Ciclo_Estacion_Retiro"]=element.ciclo_estacion_retiro
-        getdict["Ciclo_Estacion_Arribo"]=element.ciclo_estacion_arribo
-        getdict["Trips"]=element.trips
-        getdict["Retiro_Lat"]=element.retiro_lat
-        getdict["Retiro_Lon"]=element.retiro_lon
-        getdict["Arribo_Lat"]=element.arribo_lat
-        getdict["Arribo_Lon"]=element.arribo_lon
+        if element.Range!="other":
+            getdict["Range"]=element.Range
+            getdict["Count"]=element.Count#*reduction_ratio#multiplied by 100 to reflect true userbase size
+            getdict["Gender"]=element.Gender
         jsondata.append(getdict)
 
-    return jsonify(jsondata)
+    return jsonify(jsondata)  
 
-
-@app.route("/demographicsrange")
-def demographicsdata():
-    querystring="""select (case when edad_usuario >= 10 and edad_usuario < 20 then '10-19'
-             when edad_usuario >= 20 and edad_usuario < 30 then '20-29'
-             when edad_usuario >= 30 and edad_usuario < 40 then '30-39'
-             when edad_usuario >= 40 and edad_usuario < 50 then '40-49'
-             when edad_usuario >= 50 and edad_usuario < 60 then '50-59'
-             when edad_usuario >= 60 and edad_usuario < 70 then '60-69'
-             when edad_usuario >= 70 and edad_usuario < 80 then '70-79'
-	         when edad_usuario >= 80 and edad_usuario < 90 then '80-89'
-             else 'other' end) as range, count(*) as user_counts, genero_usuario
-            from viajes
-            group by genero_usuario, (case when edad_usuario >= 10 and edad_usuario < 20 then '10-19'
-             when edad_usuario >= 20 and edad_usuario < 30 then '20-29'
-             when edad_usuario >= 30 and edad_usuario < 40 then '30-39'
-             when edad_usuario >= 40 and edad_usuario < 50 then '40-49'
-             when edad_usuario >= 50 and edad_usuario < 60 then '50-59'
-             when edad_usuario >= 60 and edad_usuario < 70 then '60-69'
-             when edad_usuario >= 70 and edad_usuario < 80 then '70-79'
-	         when edad_usuario >= 80 and edad_usuario < 90 then '80-89'
-             else 'other' end);"""
+@app.route("/demoAge")
+def demoAge():
+    querystring='select * from demoage'
     data=engine.execute(querystring)
     jsondata=[]
     for element in data:
         getdict={}
-        if element.range!="other":
-            getdict["Rango_Edad"]=element.range
-            getdict["Cantidad_Usuarios"]=element.user_counts*reduction_ratio#multiplied by 100 to reflect true userbase size
-            getdict["Genero_Usuario"]=element.genero_usuario
-        jsondata.append(getdict)
-
-    return jsonify(jsondata)    
-
-@app.route("/demographicsage")
-def demographicsagedata():
-    querystring=f"""select edad_usuario ,count(*)*{reduction_ratio} as user_counts from viajes
-            group by edad_usuario"""
-    data=engine.execute(querystring)
-    jsondata=[]
-    for element in data:
-        getdict={}
-        getdict["Cantidad_Usuarios"]=element.user_counts*reduction_ratio#multiplied by 100 to reflect true userbase size
-        getdict["Edad_Usuario"]=element.edad_usuario
+        getdict["Count"]=element.Count#*reduction_ratio#multiplied by 100 to reflect true userbase size
+        getdict["Age"]=element.Age
         jsondata.append(getdict)
     return jsonify(jsondata)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 #testing to update again

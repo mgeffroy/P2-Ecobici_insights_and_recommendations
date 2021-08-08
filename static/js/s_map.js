@@ -52,26 +52,25 @@ d3.json(markers_url).then(function (response) {
 
 // COLONIAS LAYER
 // ============================================================
-var colonias_layer = new L.LayerGroup();
-d3.json("http://127.0.0.1:5000/coloniadata").then(colonias => {
-  // console.log(colonias);
-  for (var i = 0; i < Object.keys(colonias).length; i++) {
-    var colonia_data = colonias[i]['geo_shape'];
+// var colonias_layer = new L.LayerGroup();
+// d3.json("/coloniadata").then(colonias => {
+//   // console.log(colonias);
+//   for (var i = 0; i < Object.keys(colonias).length; i++) {
+//     var colonia_data = colonias[i]['geo_shape'];
 
-    L.polygon(colonia_data, {
-      color: "#C73824",
-      fillColor: "transparent",
-      fillOpacity: 0,
-      weight: 1
-    }).addTo(colonias_layer);
-  };
-});
+//     L.polygon(colonia_data, {
+//       color: "#C73824",
+//       fillColor: "transparent",
+//       fillOpacity: 0,
+//       weight: 1
+//     }).addTo(colonias_layer);
+//   };
+// });
 // myMap.addLayer(colonias_layer);
 
 var overlayMaps = {
-  'Station Markers': markers,
-  'Neighborhood Borders': colonias_layer,
-
+  'Station Markers': markers//,
+  //'Neighborhood Borders': colonias_layer,
 };
 
 

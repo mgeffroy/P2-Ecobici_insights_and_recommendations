@@ -43,7 +43,7 @@ var baseMaps = {
 // SET UP MARKERS LAYER
 var markers_to_plot = new L.LayerGroup();
 
-d3.json("http://127.0.0.1:5000/stationdata").then(function (response) {
+d3.json("/stationdata").then(function (response) {
 
   for (var i = 0; i < response.length; i++) {
 
@@ -68,7 +68,7 @@ d3.json("http://127.0.0.1:5000/stationdata").then(function (response) {
 // SET UP COLONIAS LAYER
 var colonias_layer = new L.LayerGroup();
 
-d3.json("http://127.0.0.1:5000/coloniadata").then(colonias => {
+d3.json("/coloniadata").then(colonias => {
   // console.log(colonias);
   for (var i = 0; i < Object.keys(colonias).length; i++) {
     var colonia_data = colonias[i]['geo_shape'];
@@ -111,7 +111,7 @@ function runEnter() {
   var heat_to_plot = new L.LayerGroup();
 
   // Call API with D3
-  d3.json("/routedata/" + yearSelected).then(routes => {
+  d3.json("/routesByYear/" + yearSelected).then(routes => {
 
     // Establish variable for number of routes to plot
     num_of_routes_to_plot = 250
